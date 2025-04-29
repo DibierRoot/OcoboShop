@@ -12,25 +12,25 @@ const Footer = () => {
                 <div className="flex m-6">
 
                     <div className="flex flex-col gap-8">
-                        <div>
+                        <div className="hover:text-RosadoOcobo duration-300">
                             <a href="https://www.facebook.com/share/15GyFs1qrd/" className="flex gap-3 relative">
                                 <i className="fa-brands fa-facebook fa-3x"></i>
                                 <p className="my-auto">Facebook</p>
                             </a>
                         </div>
-                        <div>
+                        <div className="hover:text-RosadoOcobo duration-300">
                             <a href="https://www.instagram.com/ocobo_band?igsh=dnM5dTJmNnk0bDB1" className="flex gap-3 relative">
                                 <i className="fa-brands fa-instagram fa-3x"></i>
                                 <p className="my-auto">Instagram</p>
                             </a>
                         </div>
-                        <div>
+                        <div className="hover:text-RosadoOcobo duration-300">
                             <a href="https://open.spotify.com/intl-es/artist/3VbShXDFGHSDp8BmH6v50u?si=OBAoDnh-REyTXPKT78lcxA" className="flex gap-3 relative">
                                 <i className="fa-brands fa-spotify fa-3x"></i>
                                 <p className="my-auto">Spotify</p>
                             </a>
                         </div>
-                        <div>
+                        <div className="hover:text-RosadoOcobo duration-300">
                             <a href="https://youtube.com/@ocobo_band?si=AQMrAhY4HAWW-ZE7" className="flex gap-3 relative">
                                 <i className="fa-brands fa-youtube fa-3x"></i>
                                 <p className="my-auto">Youtube</p>
@@ -42,10 +42,10 @@ const Footer = () => {
                 <div>
                     <h1 className="text-2xl mt-6 font-medium">OCOBOSHOP</h1>
                     <div className="mt-5 flex flex-col gap-3">
-                        <p>Camisetas</p>
-                        <p>Chamarras</p>
-                        <p>Esqueletos</p>
-                        <p>Puas</p>
+                        <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Camisetas</p>
+                        <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Chamarras</p>
+                        <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Esqueletos</p>
+                        <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Puas</p>
                     </div>
 
                 </div>
