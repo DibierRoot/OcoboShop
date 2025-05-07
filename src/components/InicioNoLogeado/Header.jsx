@@ -2,8 +2,27 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Carrito from "/src/assets/icons/Carrito.png"
+import ojito from "/src/assets/icons/IconOculto.png";
+import { Navigate } from "react-router-dom";
 
 const Header = () => {
+
+    const [dato, setDato] = useState({
+        correo: "",
+        contrasena: ""
+    })
+
+    const [mensaje, setMensaje] = useState('')
+
+    const [verContrasena, setVerContrasena] = useState(false);
+
+    const verOcultarContrasena = () => {
+        setVerContrasena(!verContrasena);
+    };
+
+    const [cargando, setCargando] = useState(false);
+
+    const {correo, contrasena} = dato;
 
     const [isOpenAccount, setIsOpenAccount] = useState(false)
 
@@ -38,7 +57,8 @@ const Header = () => {
                         <label onClick={() => setIsOpenAccount(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                         <div className="mt-8">
                             <label htmlFor="">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /><input className="rounded-md h-9 w-full text-black outline-none p-2" type="text" /></label> <br /> <br />
-                            <label htmlFor="">Contraseña <span className="text-RosadoOcobo">*</span> <br /><input className="rounded-md h-9 w-full text-black outline-none p-2" type="text" /></label>
+                            <label htmlFor="">Contraseña <span className="text-RosadoOcobo">*</span>  <br /> <span><img className="absolute right-10 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input className="rounded-md h-9 w-full text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
+                            
                             <div className="mt-4 flex flex-col gap-3">
                                 <button className="bg-RosadoOcobo p-3 rounded-md">Iniciar Sesion</button>
                                     <Link className="bg-NegroSuave p-3 rounded-md text-center" to={"/Registro"}>

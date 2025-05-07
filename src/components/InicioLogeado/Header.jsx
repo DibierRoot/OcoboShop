@@ -27,7 +27,7 @@ const Header = () => {
           if (result.isConfirmed) {
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Vuelve pronto!",
               icon: "success",
               iconColor: "#E96BA3",
               confirmButtonColor: "#E96BA3",
