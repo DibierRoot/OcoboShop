@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Carrito from "/src/assets/icons/Carrito.png"
 import Logo from "/src/assets/image/Logo.jpeg"
 import Producto1 from "/src/assets/image/Producto1.jpeg"
 import Swal from "sweetalert2";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Header = () => {
 
-    const cerrarSesion = (e) => {
+    const navigate = useNavigate();
+
+    const cerrarSesion = async (e) => {
         e.preventDefault();
     
         Swal.fire({
@@ -33,6 +37,7 @@ const Header = () => {
               confirmButtonColor: "#E96BA3",
               background: "#1C1C1C"
             });
+            navigate("/")
           }
         });
       }

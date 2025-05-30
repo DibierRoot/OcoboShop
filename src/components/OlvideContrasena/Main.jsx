@@ -138,12 +138,10 @@ const Main = ({addCliente}) => {
 
         <form onSubmit={click}>
           <div className="bg-NegroSuave relative max-w-4xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
-            <h1 className="text-4xl">¡HOLA!</h1>
-            <label htmlFor="nombre">Nombre <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="nombre" name="nombre" value={nombre} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
+            <h1 className="text-4xl">¡OLVIDE MI CONTRASEÑA!</h1>
             <label htmlFor="correo">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="correo" name="correo" value={correo} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-            <label className="relative" htmlFor="contrasena">Contraseña <span className="text-RosadoOcobo">*</span> <br /><span> <img className="absolute right-2 mt-1 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input onChange={handleChange} id="contrasena" name="contrasena" value={contrasena} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
             <button className="bg-RosadoOcobo p-3 rounded-md" disabled={cargando} >
-              {cargando ? "Registrando..." : "Crear Cuenta"}
+              {cargando ? "Recuperando..." : "Recuperar"}
             </button>
             <p className="absolute left-10 bottom-10 cursor-pointer hover:text-RosadoOcobo hover:duration-300">
               <Link to={"/"}>

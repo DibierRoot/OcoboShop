@@ -1,7 +1,7 @@
 import Header from "./Header.jsx"
 import Main from "./Main.jsx"
 
-const AppRegistro = ({addCliente}) => {
+const AppOlvideContrasena = ({addCliente}) => {
     return (
         <div className="bg-black h-dvh text-white">
             
@@ -13,4 +13,4 @@ const AppRegistro = ({addCliente}) => {
     )
 }
 
-export default AppRegistro;
+export default AppOlvideContrasena;
