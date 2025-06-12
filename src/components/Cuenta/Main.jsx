@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Logo from "/src/assets/image/Logo.jpeg"
 import { Link } from "react-router-dom";
+import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import Swal from "sweetalert2";
 import axios from "axios";
+import Lapiz from "/src/assets/icons/Lapiz.png"
 
 const Main = () => {
 
@@ -24,6 +26,12 @@ const Main = () => {
     const [editDireccion, setEditDireccion] = useState(false);
     const [editCorreoRecuperacion, setEditCorreoRecuperacion] = useState(false);
     const [editPuntoReferencia, setEditPuntoReferencia] = useState(false);
+
+    const [cambiarContrasena, setCambiarContrasena] = useState(false)
+
+    const abrirModal = () => {
+        setCambiarContrasena(!cambiarContrasena)
+    }
 
     // Obtener información del cliente al cargar el componente
     useEffect(() => {
@@ -67,12 +75,13 @@ const Main = () => {
 
         fetchClientData();
     }, []);
-
+    
     const click = async (e) => {
 
       e.preventDefault();
 
-      let regexEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+      let regexEmail = "/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/";
+
 
         try {
         const response = await axios.post("http://localhost/OcoboBack-end/CRUD/", {
@@ -85,7 +94,26 @@ const Main = () => {
             correoRecuperacion,
             puntoReferencia
         });
+
+        const response2 = await axios.post("http://localhost/OcoboBack-end/CRUD/", {
+          action: "confirmarContrasena",
+          idCliente, // Cambia por el ID correcto del cliente
+          contrasena, // Solo envía si fue editada
+        });
+
         const mensajeRespuesta = response.data.message;
+        const mensajeRespuesta2 = response2.data.message;
+
+        if (mensajeRespuesta2 === 'Datos actualizados correctamente') {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: 'Datos actualizados correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
+
         if (mensajeRespuesta === 'Datos actualizados correctamente') {
             Swal.fire({
                 position: "center",
@@ -167,9 +195,18 @@ const Main = () => {
               </div>
               <div className="flex flex-row gap-8">
                 <div className="flex flex-col gap-8">
-                  <label htmlFor="">Correo Electronico <br /> <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Correo Recuperacion <br /> <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Contraseña <br /> <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Correo Electronico <br /> 
+                    <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                  </label>
+
+                  <label htmlFor="">Correo Recuperacion <br />
+                    <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                  </label>
+
+                  <label className="relative" htmlFor="">Contraseña <br />
+                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" disabled />
+                    <img className="absolute right-0 rounded-e-md top-6 h-9 w-9 cursor-pointer" src={Lapiz} alt="" onClick={() => abrirModal()} />
+                  </label>
                 </div>
 
                 <div className="flex flex-col gap-8">
@@ -186,8 +223,33 @@ const Main = () => {
               </Link>
               </p>
           </div>
-        </form>
+
+        <Modal className="fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={cambiarContrasena} centered>
+          <ModalBody>
+            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6">
+              <h1 className="text-3xl font-semibold pb-12">RENOVAR CONTRASEÑA</h1>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <p>Contraseña</p>
+                  <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                </div>
+                <div>
+                  <p>Nueva Contraseña</p>
+                  <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                </div>
+              </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6">
+              <p onClick={() => abrirModal()} className="cursor-pointer">
+                  ← Atras
+              </p>
+            </div>
+          </ModalFooter>
+        </Modal>
           
+        </form>
 
       </main>
     )

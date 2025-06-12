@@ -186,8 +186,7 @@ const Header = ({login}) => {
                             </div>
                         </div>
                     </div>
-                </div>
-            
+                </div>            
         </header>
         
     )
