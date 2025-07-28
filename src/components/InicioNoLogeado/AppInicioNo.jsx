@@ -1,6 +1,5 @@
 import Header from "./Header.jsx"
 import Main from "./Main.jsx"
-import Footer from "./Footer.jsx"
 
 const AppInicioNo = ({login}) => {
   return (
@@ -9,8 +8,6 @@ const AppInicioNo = ({login}) => {
       <Header login={login} />
 
       <Main />
-
-      <Footer />
 
     </div>
   )

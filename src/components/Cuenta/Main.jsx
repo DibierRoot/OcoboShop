@@ -5,6 +5,7 @@ import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import Swal from "sweetalert2";
 import axios from "axios";
 import Lapiz from "/src/assets/icons/Lapiz.png"
+import ojito from "/src/assets/icons/IconOculto.png";
 
 const Main = () => {
 
@@ -26,6 +27,13 @@ const Main = () => {
     const [editDireccion, setEditDireccion] = useState(false);
     const [editCorreoRecuperacion, setEditCorreoRecuperacion] = useState(false);
     const [editPuntoReferencia, setEditPuntoReferencia] = useState(false);
+    const [editNumeroCelular, setEditNumeroCelular] = useState(false);
+
+    const [verContrasena, setVerContrasena] = useState(false);
+
+    const verOcultarContrasena = () => {
+        setVerContrasena(!verContrasena);
+    };
 
     const [cambiarContrasena, setCambiarContrasena] = useState(false)
 
@@ -60,7 +68,7 @@ const Main = () => {
                 if (data) {
                     setNombre(data.nombre || ""); // Inicializar el nombre del usuario
                     setCorreo(data.correo || "");
-                    setContrasena(data.contrasena || ""); // Nunca mostramos la contraseña real
+                    setContrasena(data.contrasena || "") // Nunca mostramos la contraseña real
                     setNumeroCelular(data.numeroCelular || "");
                     setDireccion(data.direccion || "");
                     setCorreoRecuperacion(data.correoRecuperacion || "")
@@ -80,8 +88,41 @@ const Main = () => {
 
       e.preventDefault();
 
-      let regexEmail = "/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/";
+      let regexEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
+      if (!correo.trim() || !nombre.trim()) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '¡Asegurate de llenar todos los campos!',
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+          })
+          return
+      }
+
+      if (!regexEmail.test(correo)) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '¡El correo electronico no es valido!',
+              // footer: '<a href="">Why do I have this issue?</a>'
+          })
+          return
+      }
+
+      if (contrasena && contrasena.length < 8) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '¡La contraseña debe tener como minimo 8 digitos!',
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+          })
+          return
+        }
 
         try {
         const response = await axios.post("http://localhost/OcoboBack-end/CRUD/", {
@@ -89,39 +130,48 @@ const Main = () => {
             idCliente, // Cambia por el ID correcto del cliente
             nombre, // Enviar nombre
             correo,
-            contrasena, // Solo envía si fue editada
+            contrasena,
             direccion,
+            numeroCelular,
             correoRecuperacion,
             puntoReferencia
         });
 
-        const response2 = await axios.post("http://localhost/OcoboBack-end/CRUD/", {
-          action: "confirmarContrasena",
-          idCliente, // Cambia por el ID correcto del cliente
-          contrasena, // Solo envía si fue editada
-        });
-
         const mensajeRespuesta = response.data.message;
-        const mensajeRespuesta2 = response2.data.message;
-
-        if (mensajeRespuesta2 === 'Datos actualizados correctamente') {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: 'Datos actualizados correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        };
 
         if (mensajeRespuesta === 'Datos actualizados correctamente') {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: 'Datos actualizados correctamente',
-                showConfirmButton: false,
-                timer: 1500
-            });
+                Swal.fire({
+                  title: "¿Quieres guardar los cambios?",
+                  titleColor: "#FFFFFF",
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  cancelButtonColor: "#3A3A3A",
+                  confirmButtonText: "Guardar",
+                  confirmButtonColor: "#E96BA3",
+                  denyButtonText: "No guardar",
+                  denyButtonColor: "#F28B82",
+                  background: "#1C1C1C"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire({
+                      title: "¡Cambios guardados!",
+                      icon: "success",
+                      iconColor: "#E96BA3",
+                      confirmButtonColor: "#E96BA3",
+                      background: "#1C1C1C"
+                    }). then(() => {
+                          setCambiarContrasena(false);
+                    })
+                  } else if (result.isDenied) {
+                    Swal.fire({
+                      title: "Cambios no guardados",
+                      icon: "info",
+                      iconColor: "#F28B82",
+                      confirmButtonColor: "#E96BA3",
+                      background: "#1C1C1C"
+                    });
+                  }
+                });
         } else {
             console.log(mensajeRespuesta)
             Swal.fire({
@@ -137,6 +187,7 @@ const Main = () => {
             setEditCorreo(false);
             setEditContrasena(false);
             setEditDireccion(false);
+            setEditNumeroCelular(false);
             setEditCorreoRecuperacion(false)
             setEditPuntoReferencia(false)
         } catch (error) {
@@ -148,47 +199,16 @@ const Main = () => {
             });
             console.log(error)
         }
-
-    Swal.fire({
-      title: "¿Quieres guardar los cambios?",
-      titleColor: "#FFFFFF",
-      showDenyButton: true,
-      showCancelButton: true,
-      cancelButtonColor: "#3A3A3A",
-      confirmButtonText: "Guardar",
-      confirmButtonColor: "#E96BA3",
-      denyButtonText: "No guardar",
-      denyButtonColor: "#F28B82",
-      background: "#1C1C1C"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "¡Cambios guardados!",
-          icon: "success",
-          iconColor: "#E96BA3",
-          confirmButtonColor: "#E96BA3",
-          background: "#1C1C1C"
-        });
-      } else if (result.isDenied) {
-        Swal.fire({
-          title: "Cambios no guardados",
-          icon: "info",
-          iconColor: "#F28B82",
-          confirmButtonColor: "#E96BA3",
-          background: "#1C1C1C"
-        });
-      }
-    });
   }
 
   const [productos, setVerProductos] = useState([])
 
     return (
-      <main>
+      <main className="bg-black pb-10">
 
         <form onSubmit={click}>
-          <div className="bg-NegroSuave relative max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
-            <div className="flex gap-56">
+          <div className="bg-NegroSuave relative max-w-2xl sm:max-w-2xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
+            <div className="flex flex-col sm:flex-col md:flex-col xl:flex-row 2xl:flex-row items-center gap-10 sm:gap-10 md:gap-10 xl:gap-56 2xl:gap-56">
               <div>
                 <img className="h-52 w-52 rounded-full" src={Logo} alt="" />
                 <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 p-2 mt-4 outline-none bg-NegroSuave" />
@@ -204,44 +224,44 @@ const Main = () => {
                   </label>
 
                   <label className="relative" htmlFor="">Contraseña <br />
-                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" disabled />
+                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="password" disabled />
                     <img className="absolute right-0 rounded-e-md top-6 h-9 w-9 cursor-pointer" src={Lapiz} alt="" onClick={() => abrirModal()} />
                   </label>
                 </div>
 
                 <div className="flex flex-col gap-8">
                   <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Direccion <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
                   <label htmlFor="">Numero telefonico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
                 </div>
               </div>
             </div>
             <button className="bg-RosadoOcobo p-3 rounded-md">Aceptar Cambios</button>
             <p className="absolute left-10 bottom-10 cursor-pointer hover:text-RosadoOcobo hover:duration-300">
-              <Link to={"/Inicio"}>
+              <Link to={"/Inicio/Productos"}>
                 ← Atras
               </Link>
-              </p>
+            </p>
           </div>
 
         <Modal className="fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={cambiarContrasena} centered>
           <ModalBody>
-            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6">
-              <h1 className="text-3xl font-semibold pb-12">RENOVAR CONTRASEÑA</h1>
-              <div className="flex flex-col gap-5">
-                <div>
-                  <p>Contraseña</p>
-                  <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
-                </div>
-                <div>
-                  <p>Nueva Contraseña</p>
-                  <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+            <form onSubmit={click}>
+              <div className="bg-NegroSuave text-white max-w-5xl w-full p-6 rounded-t-lg">
+                <h1 className="text-3xl font-semibold pb-12">INGRESE SU NUEVA CONTRASEÑA</h1>
+                <div className="items-center flex flex-col gap-11">
+                  <div className="relative">
+                    <label>Contraseña <span className="text-RosadoOcobo">*</span> <br /> <span> <img className="absolute right-1 mt-0.5 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
+                  </div>
+                  <div>
+                    <button className="bg-RosadoOcobo p-3 rounded-md">Continuar</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </ModalBody>
           <ModalFooter>
-            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6">
+            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6 rounded-b-lg">
               <p onClick={() => abrirModal()} className="cursor-pointer">
                   ← Atras
               </p>

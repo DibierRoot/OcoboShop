@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         "NegroSuave": "#1C1C1C",
+        "NegroSuaveSuavizado": "rgba(28, 28, 28, 0.9)",
         "GrisOscuro": "#3A3A3A",
         "GrisClaro": "#D1D1D1",
         "RosadoSuave": "#F2A7D5",

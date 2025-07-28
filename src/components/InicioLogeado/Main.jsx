@@ -1,132 +1,353 @@
 import { useState, useEffect } from "react";
 import Items from "./Items"
-import Producto1 from "/src/assets/image/Producto1.jpeg"
-import Producto2 from "/src/assets/image/Producto3.jpeg"
+import Footer from "./Footer.jsx"
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
+import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import Swal from "sweetalert2";
+import CamisetaIcon from "/src/assets/icons/CamisetaIcon.png"
+import CamisetaIconHover from "/src/assets/icons/CamisetaIconHover.png"
+import EsqueletoIcon from "/src/assets/icons/EsqueletoIcon.png"
+import EsqueletoIconHover from "/src/assets/icons/EsqueletoIconHover.png"
+import ChaquetaIcon from "/src/assets/icons/ChaquetaIcon.png"
+import ChaquetaIconHover from "/src/assets/icons/ChaquetaIconHover.png"
+import PlumillaIcon from "/src/assets/icons/PlumillaIcon.png"
+import PlumillaIconHover from "/src/assets/icons/PlumillaIconHover.png"
+import CapuchaIcon from "/src/assets/icons/CapuchaIcon.png"
+import CapuchaIconHover from "/src/assets/icons/CapuchaIconHover.png"
 
 const Main = () => {
 
   const [productos, setVerProductos] = useState([])
 
+  const [verDetalles, setVerDetalles] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+  const [filtro, setFiltro] = useState("")
+
+  const [cantidad, setCantidad] = useState(1);
+
+  const abrirModal = (producto) => {
+      setCantidad(1);
+      setProductoSeleccionado(producto) // guarda el producto que se seleccione
+      setVerDetalles(!verDetalles)
+  }
+
+  const aumentarCantidad = () => {
+      if (cantidad < productoSeleccionado?.cantidad) {
+          setCantidad(cantidad + 1);
+      }
+  }
+
+  const disminuirCantidad = () => {
+      if (cantidad > 1) {
+          setCantidad(cantidad - 1);
+      }
+  }
+
+  /**
+  * Función que se ejecuta al hacer clic en el botón de búsqueda.
+  * Hace una solicitud al backend para buscar productos basados en el filtro (puede ser categoria).
+  * Si se encuentran resultados, se muestran en pantalla; de lo contrario, se lanza una alerta.
+  */
+  const obtenerProducto = async (filtro) => {
+      try {
+          const response = await axios.post('http://localhost/OcoboBack-end/Filtros/', {
+              action: "obtenerProducto", // Acción en el backend para buscar productos
+              filtro: filtro             // Filtro de búsqueda (nombre o correo)
+          });
+
+          console.log(filtro); // Imprimir el filtro en la consola para depuración
+
+          if (response.data.length > 0) {
+              setVerProductos(response.data); // Actualizar el estado con los resultados
+              Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: 'Productos encontrados',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  iconColor: "#E96BA3",
+                  confirmButtonColor: "#E96BA3",
+                  background: "#1C1C1C"
+              });
+          } else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'No se encontraron productos con ese filtro',
+                  iconColor: "#F28B82",
+                  confirmButtonColor: "#E96BA3",
+                  background: "#1C1C1C"
+                  
+              });
+          }
+      } catch (error) {
+          console.log(error)
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '¡Error al realizar la búsqueda!'
+          });
+      }
+  };
+
+  const manejarCompra = () => {
+      try {
+          const clienteId = localStorage.getItem('idCliente'); // Verificamos si el idCliente está guardado
+          if (!clienteId) {
+              // Si no está autenticado, redirigimos al login
+              navigate("/login"); // Ajusta esta ruta al lugar donde tengas la pantalla de login
+              return;
+          }
+    
+          // Crear un objeto con los datos del producto y la cantidad seleccionada
+          const productoConId = {
+              ...productoSeleccionado,
+              id: productoSeleccionado.id || uuidv4(),
+              cantidad
+          };
+   
+          // Crear un objeto con los datos de la compra, sin necesidad de actualizar el carrito
+          const datosCompra = {
+              productos: [productoConId], // Colocamos el producto directamente en los datos de compra
+              precioTotal: productoConId.precio * productoConId.cantidad
+          };
+    
+          // Redirigir a la página de compra con los datos de la compra
+          navigate("/Inicio/Carrito/Compra", { state: datosCompra });
+      } catch (error) {
+          console.error("Error en el proceso de compra:", error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Error en el proceso de compra',
+              text: error.message,
+          });
+      }
+  };
+
+
+  // Función para agregar el producto al carrito
+  const manejarCarrito = () => {
+      const carritoExistente = JSON.parse(localStorage.getItem('carrito')) || [];
+      const productoConId = {
+          ...productoSeleccionado,
+          id: productoSeleccionado.id || uuidv4(),
+          cantidad
+      };
+
+      // Verificamos si el producto ya está en el carrito usando el idProducto
+      const productoExistente = carritoExistente.find(item => item.idProducto === productoConId.idProducto);
+    
+      if (productoExistente) {
+          productoExistente.cantidad = cantidad;
+    
+          const carritoActualizado = carritoExistente.map(item =>
+              item.idProducto === productoExistente.idProducto ? productoExistente : item
+          );
+    
+          localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+    
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              title: 'Cantidad del producto actualizada',
+              showConfirmButton: false,
+              timer: 1500,
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+          });
+      } else {
+          const carritoActualizado = [
+              ...carritoExistente,
+              productoConId
+          ];
+    
+          localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+    
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              title: 'Producto agregado exitosamente al carrito',
+              showConfirmButton: false,
+              timer: 1500,
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+          });
+      }
+  };
+    
+  // Función para editar la cantidad en el carrito
+  const editarCantidadCarrito = (idProducto, nuevaCantidad) => {
+      const carritoExistente = JSON.parse(localStorage.getItem('carrito')) || [];
+      const productoExistente = carritoExistente.find(item => item.idProducto === idProducto);
+    
+      if (productoExistente) {
+          productoExistente.cantidad = nuevaCantidad;
+    
+        const carritoActualizado = carritoExistente.map(item =>
+            item.idProducto === idProducto ? productoExistente : item
+        );
+        localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+    
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: 'Cantidad actualizada correctamente',
+            showConfirmButton: false,
+            timer: 1500,
+            iconColor: "#E96BA3",
+            confirmButtonColor: "#E96BA3",
+            background: "#1C1C1C"
+        });
+      }
+  };
+
+  // Obtener los productos desde el backend
+  const obtenerDatos = async () => {
+      axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
+        .then(response => {
+          setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
+        })
+        .catch(error => {
+          console.error("Hubo un error al obtener las imágenes: ", error);
+        });
+  }
+
+  useEffect(() => {
+      obtenerDatos();
+  }, [])
+
+  const milesSeleccionado = (productoSeleccionado) => {
+      return productoSeleccionado?.toLocaleString('es-CO');
+  }
+
+  const [hoverCategoria1, setHoverCategoria1] = useState(false)
+
+  const [hoverCategoria2, setHoverCategoria2] = useState(false)
+
+  const [hoverCategoria3, setHoverCategoria3] = useState(false)
+
+  const [hoverCategoria4, setHoverCategoria4] = useState(false)
+
+  const [hoverCategoria5, setHoverCategoria5] = useState(false)
+
+
     return (
-      <main className="">
 
-          <section className="bg-black h-auto rounded-lg container mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 grid">
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p></p>
-              <p className="text-white">Producto 1</p>
-              <p>Descripcion</p>
-            </item>
+        <div>
+            <main>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 2</p>
-              <p>Descripcion</p>
-            </item>
+            <div className="mt-5">
+                <p className="cursor-pointer hover:text-RosadoOcobo hover:underline duration-300 text-center" onClick={() => obtenerDatos()}>Mostrar Todo</p>
+            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 3</p>
-              <p>Descripcion</p>
-            </item>
+            <div className="relative mx-56 mt-4 flex gap-12 md:gap-24 xl:gap-28 2xl:gap-28 justify-center">
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 4</p>
-              <p>Descripcion</p>
-            </item>
+                {/* <input className="text-white border-b-2 border-white h-10 p-2 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" /> */}
+                <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                    <span><img className="relative h-10 w-10 transition-opacity" src={hoverCategoria1 ? CamisetaIconHover : CamisetaIcon} alt="Carrito" /></span>
+                    <p>Camisetas</p>
+                </div>
+                
+                <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("5")} onMouseEnter={() => setHoverCategoria2(true)} onMouseLeave={() => setHoverCategoria2(false)}>
+                    <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria2 ? EsqueletoIconHover : EsqueletoIcon} alt="Carrito" /></span>
+                    <p>Esqueletos</p>
+                </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 5</p>
-              <p>Descripcion</p>
-            </item>
+                <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("6")} onMouseEnter={() => setHoverCategoria3(true)} onMouseLeave={() => setHoverCategoria3(false)}>
+                    <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria3 ? ChaquetaIconHover : ChaquetaIcon} alt="Carrito" /></span>
+                    <p>Chaquetas</p>
+                </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 6</p>
-              <p>Descripcion</p>
-            </item>
+                <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("3")} onMouseEnter={() => setHoverCategoria4(true)} onMouseLeave={() => setHoverCategoria4(false)}>
+                    <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria4 ? PlumillaIconHover : PlumillaIcon} alt="Carrito" /></span>
+                    <p>Picks</p>
+                </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 7</p>
-              <p>Descripcion</p>
-            </item>
+                <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("4")} onMouseEnter={() => setHoverCategoria5(true)} onMouseLeave={() => setHoverCategoria5(false)}>
+                    <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria5 ? CapuchaIconHover : CapuchaIcon} alt="Carrito" /></span>
+                    <p>Accesorios</p>
+                </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 8</p>
-              <p>Descripcion</p>
-            </item>
+            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 9</p>
-              <p>Descripcion</p>
-            </item>
+            <hr className="mx-14 sm:mx-16 md xl:mx-56 2xl:mx-56 mt-10 mb-5" />
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 10</p>
-              <p>Descripcion</p>
-            </item>
+            
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 11</p>
-              <p>Descripcion</p>
-            </item>
+            <Modal className="outline-none fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={verDetalles}>
+                <ModalBody className="bg-NegroSuave max-w-xl sm:max-w-2xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl text-white p-6 rounded-lg">
+                    <form>
+                    <div className="relative flex sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
+                        <div className="flex flex-col gap-7">
+                            <img className="relative custom-size" src={productoSeleccionado?.imagen} alt="imagen"/>
+                            <h1 className="productos-nombre">{productoSeleccionado?.nombre}</h1>
+                        </div>
+                                    
+                        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-6">
+                            <div className="flex flex-col gap-2">
+                                <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Color:</h2>
+                                <input disabled readOnly className={productoSeleccionado?.idColor == 1 ? "rounded-full bg-black border-2 sm:w-11 md:w-12 lg:w-14 xl:w-14 2xl:w-14 sm:h-11 md:h-12 lg:h-14 xl:h-14 2xl:h-14": productoSeleccionado?.idColor == 2 ? "rounded-full bg-RosadoOcobo border-2 w-14 h-14" : "error"} />
+                            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 12</p>
-              <p>Descripcion</p>
-            </item>
+                            <div className={productoSeleccionado?.idTalla == 7 ? "-mt-6" : ""}>
+                                <h2 className={productoSeleccionado?.idTalla == 7 ? "hidden" : "text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium"}>Talla:</h2>
+                                <input className={productoSeleccionado?.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 sm:w-11 md:w-12 lg:w-14 xl:w-14 2xl:w-14 sm:h-11 md:h-12 lg:h-14 xl:h-14 2xl:h-14 text-center"} readOnly disabled value={productoSeleccionado?.idTalla == 1 ? "XS" : productoSeleccionado?.idTalla == 2 ? "S" : productoSeleccionado?.idTalla == 3 ? "M" : productoSeleccionado?.idTalla == 4 ? "L" : productoSeleccionado?.idTalla == 5 ? "XL" : productoSeleccionado?.idTalla == 6 ? "XXL" : "error"} />
+                            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 13</p>
-              <p>Descripcion</p>
-            </item>
+                            <div>
+                            <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Precio:</h2>
+                                <div className="flex text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                                    <input className="bg-NegroSuave w-10 sm:w-16 md:w-16 xl:w-20 2xl:w-24 outline-none" disabled readOnly value={milesSeleccionado(productoSeleccionado?.precio)} type="text" />
+                                    <p>$ COP</p>
+                                </div>
+                            </div>     
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 14</p>
-              <p>Descripcion</p>
-            </item>
+                            <div className="">
+                                <h2 className="font-medium">Cantidad disponible de productos: </h2>
+                                <p className="mt-2 font-semibold text-lg">{productoSeleccionado?.cantidad}</p>
+                            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 15</p>
-              <p>Descripcion</p>
-            </item>
+                            <div className="">
+                                <h2 className="font-medium">Ingrese la cantidad que desea comprar:</h2>
+                                <button className="bg-RosadoOcobo p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={disminuirCantidad}>-</button>
+                                <input className="bg-NegroSuave w-10 text-center outline-none" value={cantidad} readOnly disabled type="text" max={productoSeleccionado?.cantidad} />
+                                <button className="bg-RosadoOcobo p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={aumentarCantidad}>+</button>
+                            </div>
 
-            <item className="relative group text-white p-8 rounded-md w-auto">
-              <img src={Producto1} alt="ImagenProducto" />
-              <button className="absolute top-96 right-28 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500">Agregar al carrito</button>
-              <p className="text-white">Producto 16</p>
-              <p>Descripcion</p>
-            </item>
-          </section>
+                            <div>
+                                <h2 className="font-medium">Descripcion:</h2>
+                                <p>{productoSeleccionado?.descripcion}</p>
+                            </div>
+                        </div>
+
+                        <p className="absolute right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
+                            
+                        <div className="flex flex-col gap-8">
+                            <button className="mt-12 bg-RosadoOcobo rounded-md p-3" type="submit" onClick={manejarCompra}>Comprar</button>
+                            <button className="border-2 bg-black rounded-md p-3" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </form>
+                </ModalBody>
+            </Modal>
+
+            <section className="bg-black h-auto rounded-lg container mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 grid">
+                {productos.map((producto, index) => (
+                <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
+                ))}       
+            </section>
 
 
-      </main>
+        </main>
+
+        <Footer obtenerProducto={obtenerProducto} />
+
+      </div>
+
+
     )
 }
 

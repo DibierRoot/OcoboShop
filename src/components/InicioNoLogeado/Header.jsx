@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Carrito from "/src/assets/icons/Carrito.png"
@@ -6,10 +6,19 @@ import ojito from "/src/assets/icons/IconOculto.png";
 import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import ItemsCarrito from "./ItemsCarrito";
 
 const Header = ({login}) => {
 
   const navigate = useNavigate();
+
+    const [productosSeleccionados, setProductosSeleccionados] = useState([]);
+    const [productosEnCarrito, setProductosEnCarrito] = useState([]);
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const [cantidad, setCantidad] = useState(1);
+    const productosEnCarritoMemo = useMemo(() => productosEnCarrito, [productosEnCarrito]);
+
+
 
     const [cliente, setCliente] = useState({
         correo: "",
@@ -31,6 +40,124 @@ const Header = ({login}) => {
     const [isOpenAccount, setIsOpenAccount] = useState(false)
 
     const [isOpenCart, setIsOpenCart] = useState(false)
+
+    const borrarTodoCarrito = () => {
+        Swal.fire({
+          title: "¿Estas seguro?",
+          text: "¡Se Eliminara Todo lo que Hay en el Carrito de Compras!",
+          icon: "warning",
+          iconColor: "#F28B82",
+          showCancelButton: true,
+          confirmButtonColor: "#E96BA3",
+          confirmButtonText: "¡Si, Eliminar Todo!",
+          cancelButtonText: "Cancelar",
+          cancelButtonColor: "#3A3A3A",
+          background: "#1C1C1C"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "¡Productos Eliminados con Exito!",
+              icon: "success",
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+            });
+            // Eliminamos el contenido del carrito en el localStorage
+            setProductosEnCarrito([]);
+            setProductoSeleccionado(null);
+            localStorage.removeItem("carrito");
+          }
+        });
+    };
+
+    const eliminarSeleccionados = useCallback(() => {
+        const carritoActualizado = productosEnCarrito.filter(
+            (producto) => !productosSeleccionados.includes(producto.id)
+        );
+        setProductosEnCarrito(carritoActualizado);
+        setProductosSeleccionados([]);
+        localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
+        mostrarMensaje("Productos eliminados correctamente");
+    }, [productosEnCarrito, productosSeleccionados]);
+    
+        const editarProducto = (producto) => {
+            setProductoSeleccionado(producto);
+            setCantidad(producto.cantidad);
+        };
+    
+        const disminuirCantidad = () => {
+            if (productoSeleccionado && cantidad > 1) {
+            setCantidad(cantidad - 1);
+            }
+        };
+    
+    const manejarCarrito = () => {
+        if (!productoSeleccionado) {
+        mostrarMensaje("Producto no seleccionado", "Por favor selecciona un producto antes de agregarlo al carrito.", "error");
+        return;
+        }
+    
+        const carritoExistente = [...productosEnCarrito];
+
+        const productoExistente = carritoExistente.find(
+        (item) => item.id === productoSeleccionado.id
+        );
+    
+        if (productoExistente) {
+        if (productoExistente.cantidad + cantidad > productoSeleccionado.cantidadMaxima) {
+            mostrarMensaje("Cantidad excedida", 'No puedes agregar más de ${productoSeleccionado.cantidadMaxima} unidades.', "error");
+            return;
+        }
+        productoExistente.cantidad += cantidad;
+        } else {
+        carritoExistente.push({ ...productoSeleccionado, cantidad });
+        }
+    
+        setProductosEnCarrito(carritoExistente);
+        localStorage.setItem("carrito", JSON.stringify(carritoExistente));
+        mostrarMensaje("Producto agregado exitosamente");
+    
+            setProductoSeleccionado(null);
+    };
+    
+    useEffect(() => {
+        const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+        setProductosEnCarrito(carritoGuardado);
+    }, []);
+    
+    useEffect(() => {
+        if (productosEnCarrito.length > 0) {
+        localStorage.setItem("carrito", JSON.stringify(productosEnCarrito));
+        }
+    }, [productosEnCarrito]);
+
+    useEffect(() => {
+        const syncCarritoConLocalStorage = () => {
+            const carritoLocal = JSON.parse(localStorage.getItem("carrito")) || [];
+            
+            // Solo actualiza si hay cambios reales
+            if (JSON.stringify(carritoLocal) !== JSON.stringify(productosEnCarrito)) {
+                setProductosEnCarrito(carritoLocal);
+            }
+        };
+
+        // Revisa cambios cada segundo (ajusta si es necesario)
+        const intervalId = setInterval(syncCarritoConLocalStorage, 1000);
+
+        // Escucha cambios en otras pestañas
+        const handleStorageChange = (event) => {
+            if (event.key === "carrito") {
+                syncCarritoConLocalStorage();
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            clearInterval(intervalId);
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, [productosEnCarrito]);
 
         const click = async (e) => {
         e.preventDefault()
@@ -95,9 +222,12 @@ const Header = ({login}) => {
                     icon: "success",
                     title: 'Login exitoso',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    iconColor: "#E96BA3",
+                    confirmButtonColor: "#E96BA3",
+                    background: "#1C1C1C"
                 });
-                navigate("/Inicio")
+                navigate("/Inicio/Productos")
             }
         } catch (error) {
             console.log(error)
@@ -135,7 +265,6 @@ const Header = ({login}) => {
 
 
                         <div className="absolute -mt-14 right-3 flex mr-6 gap-7">
-                            <input className="text-white border-b-2 border-white h-10 p-2 mt-4 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" />
                             <span onClick={() => setIsOpenCart(true)}><img className="h-16 w-16" src={Carrito} alt="Carrito" /></span>
                         </div>
 
@@ -147,9 +276,9 @@ const Header = ({login}) => {
 
             </div>
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
-                <div className={`fixed bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenAccount && "invisible"}`}>
+                <div className={`fixed z-50 bg-Suavizado mr-auto w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenAccount && "invisible"}`}>
                     <form onSubmit={click}>
-                        <div className={`w-full bg-black max-w-96 h-dvh relative transition-all duration-500 p-8 ${isOpenAccount ? "w-80" : "w-0"}`}>
+                        <div className={`bg-black h-dvh relative transition-all duration-500 p-8 ${isOpenAccount ? "cuenta" : "w-0"}`}>
                             <label onClick={() => setIsOpenAccount(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                             <div className="mt-8">
                                 <label htmlFor="">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /><input id="correo" name="correo" value={correo} onChange={handleChange} className="rounded-md h-9 w-full text-black outline-none p-2" type="text" /></label> <br /> <br />
@@ -175,18 +304,39 @@ const Header = ({login}) => {
                     </form>
                 </div>
             </div>
-                <div className={`fixed bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
-                    <div className={`w-full bg-black max-w-96 h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "w-80" : "w-0"}`}>
+                <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
+                    <div className={`bg-black h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "carrito" : "w-0"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
-                        <div className="mt-80">
-                            <div className="flex flex-col gap-3">
-                                <p className="text-center">¡No hay nada aqui!</p>
-                                <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button>
+                        <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
+                            <section className="flex flex-col gap-7">
+                                {!productosEnCarrito.length ?
+                                <div className="mt-80">
+                                    <div className="flex flex-col gap-3">
+                                        <p className="text-center">¡No hay nada aqui!</p>
+                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button>
+                                    </div>
+                                </div>
+
+                                :
+                                
+                                productosEnCarritoMemo.map ((producto) => (
+                                    <ItemsCarrito key={producto.id} productosSeleccionados={productosSeleccionados} setProductosSeleccionados={setProductosSeleccionados} productosEnCarrito={productosEnCarrito} setProductosEnCarrito={setProductosEnCarrito} producto={producto} />
+                                ))}
+
+                            </section>
+
+                            <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex gap-5"}>
+                                <button className="bg-RosadoOcobo rounded-md p-3">Comprar</button>
+                                <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
+                                <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Borrar Todo</button>
                             </div>
+
+                            {/* <p className="text-center">¡No hay nada aqui!</p>
+                            <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button> */}
                         </div>
                     </div>
-                </div>            
+                </div>
         </header>
         
     )
