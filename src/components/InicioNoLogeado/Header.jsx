@@ -255,17 +255,17 @@ const Header = ({login}) => {
 
     return (
         <header>
-            <div className="p-4 relative">
+            <div className="p-4">
 
-                <nav>
+                <nav className="flex items-center justify-between px-6 relative">
 
-                    <p className="cursor-pointer mt-4 absolute ml-6" onClick={() => setIsOpenAccount(true)}>Cuenta</p>
+                    <p className="cursor-pointer" onClick={() => setIsOpenAccount(true)}>Cuenta</p>
 
-                    <h1 className="text-5xl my-auto text-center font-bold">OCOBO</h1>
+                    <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold">OCOBO</h1>
 
 
-                        <div className="absolute -mt-14 right-3 flex mr-6 gap-7">
-                            <span onClick={() => setIsOpenCart(true)}><img className="h-16 w-16" src={Carrito} alt="Carrito" /></span>
+                        <div className="" onClick={() => setIsOpenCart(true)}>
+                            <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
                         </div>
 
 

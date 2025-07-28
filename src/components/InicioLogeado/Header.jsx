@@ -225,11 +225,10 @@ const Header = () => {
         <header>
             <div className="p-4 relative">
 
-                <nav>
-                    <div className="ml-2 flex absolute hover:bg-black transition-all duration-500">
-                        <img className="h-12 w-12" src={Logo} alt="" />
-                        <p className="cursor-default mt-4 ml-6">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">V</span></p>
-                        <div className="absolute left-0 ml-10 w-48 mt-10 bg-black text-white rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <nav className="flex items-center justify-between px-6 relative">
+                    <div className="flex hover:bg-black transition-all duration-500">
+                        <p className="cursor-default">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">V</span></p>
+                        <div className="absolute left-0 w-48 mt-9 bg-black text-white rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
                             <ul className="p-2">
                                 <Link to={"/Inicio/Cuenta"}>
                                     <li className="hover:bg-RosadoOcobo p-2 rounded cursor-pointer">Cuenta</li>
@@ -240,11 +239,11 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <h1 className="text-5xl my-auto text-center font-bold">OCOBO</h1>
+                    <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold">OCOBO</h1>
 
 
-                        <div className="absolute -mt-14 right-3 flex mr-6 gap-7">
-                            <span onClick={() => setIsOpenCart(true)}><img className="h-16 w-16" src={Carrito} alt="Carrito" /></span>
+                        <div onClick={() => setIsOpenCart(true)}>
+                            <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
                         </div>
 
 
