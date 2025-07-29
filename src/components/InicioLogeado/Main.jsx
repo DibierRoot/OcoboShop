@@ -5,6 +5,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import Swal from "sweetalert2";
+import { Link, useNavigate} from "react-router-dom";
 import CamisetaIcon from "/src/assets/icons/CamisetaIcon.png"
 import CamisetaIconHover from "/src/assets/icons/CamisetaIconHover.png"
 import EsqueletoIcon from "/src/assets/icons/EsqueletoIcon.png"
@@ -17,6 +18,8 @@ import CapuchaIcon from "/src/assets/icons/CapuchaIcon.png"
 import CapuchaIconHover from "/src/assets/icons/CapuchaIconHover.png"
 
 const Main = () => {
+
+  const navigate = useNavigate();
 
   const [productos, setVerProductos] = useState([])
 
@@ -114,7 +117,7 @@ const Main = () => {
           };
     
           // Redirigir a la página de compra con los datos de la compra
-          navigate("/Inicio/Carrito/Compra", { state: datosCompra });
+          navigate("/Inicio/Productos/Compra", { state: datosCompra });
       } catch (error) {
           console.error("Error en el proceso de compra:", error);
           Swal.fire({
@@ -284,35 +287,38 @@ const Main = () => {
             
 
             <Modal className="outline-none fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={verDetalles}>
-                <ModalBody className="bg-NegroSuave max-w-xl sm:max-w-2xl md:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl text-white p-6 rounded-lg">
+                <ModalBody className="bg-NegroSuave md:max-w-3xl xl:max-w-4xl 2xl:max-w-4xl text-white p-6 rounded-lg">
                     <form>
-                    <div className="relative flex sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
+                    <div className="relative flex flex-col md:flex-row sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
                         <div className="flex flex-col gap-7">
-                            <img className="relative custom-size" src={productoSeleccionado?.imagen} alt="imagen"/>
-                            <h1 className="productos-nombre">{productoSeleccionado?.nombre}</h1>
+                            <img className="relative w-64 h-72 md:custom-size" src={productoSeleccionado?.imagen} alt="imagen"/>
+                            <div className="mb-5">
+                                <h1 className="font-bold text-xl">{productoSeleccionado?.nombre}</h1>
+                                <p>{productoSeleccionado?.descripcion}</p>
+                            </div>
                         </div>
                                     
                         <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-6">
                             <div className="flex flex-col gap-2">
                                 <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Color:</h2>
-                                <input disabled readOnly className={productoSeleccionado?.idColor == 1 ? "rounded-full bg-black border-2 sm:w-11 md:w-12 lg:w-14 xl:w-14 2xl:w-14 sm:h-11 md:h-12 lg:h-14 xl:h-14 2xl:h-14": productoSeleccionado?.idColor == 2 ? "rounded-full bg-RosadoOcobo border-2 w-14 h-14" : "error"} />
-                            </div>
-
-                            <div className={productoSeleccionado?.idTalla == 7 ? "-mt-6" : ""}>
-                                <h2 className={productoSeleccionado?.idTalla == 7 ? "hidden" : "text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium"}>Talla:</h2>
-                                <input className={productoSeleccionado?.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 sm:w-11 md:w-12 lg:w-14 xl:w-14 2xl:w-14 sm:h-11 md:h-12 lg:h-14 xl:h-14 2xl:h-14 text-center"} readOnly disabled value={productoSeleccionado?.idTalla == 1 ? "XS" : productoSeleccionado?.idTalla == 2 ? "S" : productoSeleccionado?.idTalla == 3 ? "M" : productoSeleccionado?.idTalla == 4 ? "L" : productoSeleccionado?.idTalla == 5 ? "XL" : productoSeleccionado?.idTalla == 6 ? "XXL" : "error"} />
+                                <input disabled readOnly className={`w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 ${productoSeleccionado?.idColor == 1 ? "rounded-full bg-black border-2": productoSeleccionado?.idColor == 2 ? "rounded-full bg-RosadoOcobo border-2" : "error"}`} />
                             </div>
 
                             <div>
-                            <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Precio:</h2>
-                                <div className="flex text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-                                    <input className="bg-NegroSuave w-10 sm:w-16 md:w-16 xl:w-20 2xl:w-24 outline-none" disabled readOnly value={milesSeleccionado(productoSeleccionado?.precio)} type="text" />
-                                    <p>$ COP</p>
+                                <h2 className={productoSeleccionado?.idTalla == 7 ? "hidden" : "text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium"}>Talla:</h2>
+                                <input className={productoSeleccionado?.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 text-center"} readOnly disabled value={productoSeleccionado?.idTalla == 1 ? "XS" : productoSeleccionado?.idTalla == 2 ? "S" : productoSeleccionado?.idTalla == 3 ? "M" : productoSeleccionado?.idTalla == 4 ? "L" : productoSeleccionado?.idTalla == 5 ? "XL" : productoSeleccionado?.idTalla == 6 ? "XXL" : "error"} />
+                            </div>
+
+                            <div>
+                                <div className="font-bold flex text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                                    <p>$</p>
+                                    <p className="bg-NegroSuave pr-1 outline-none" disabled readOnly value={milesSeleccionado(productoSeleccionado?.precio)} type="text" >{milesSeleccionado(productoSeleccionado?.precio)} </p>
+                                    <p>COP</p>
                                 </div>
                             </div>     
 
                             <div className="">
-                                <h2 className="font-medium">Cantidad disponible de productos: </h2>
+                                <h2 className="font-medium">Cantidad disponible: </h2>
                                 <p className="mt-2 font-semibold text-lg">{productoSeleccionado?.cantidad}</p>
                             </div>
 
@@ -322,17 +328,12 @@ const Main = () => {
                                 <input className="bg-NegroSuave w-10 text-center outline-none" value={cantidad} readOnly disabled type="text" max={productoSeleccionado?.cantidad} />
                                 <button className="bg-RosadoOcobo p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={aumentarCantidad}>+</button>
                             </div>
-
-                            <div>
-                                <h2 className="font-medium">Descripcion:</h2>
-                                <p>{productoSeleccionado?.descripcion}</p>
-                            </div>
                         </div>
 
                         <p className="absolute right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
                             
                         <div className="flex flex-col gap-8">
-                            <button className="mt-12 bg-RosadoOcobo rounded-md p-3" type="submit" onClick={manejarCompra}>Comprar</button>
+                            <button className="mt-12 bg-RosadoOcobo rounded-md p-3" type="button" onClick={manejarCompra}>Comprar</button>
                             <button className="border-2 bg-black rounded-md p-3" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
                         </div>
                     </div>
@@ -340,7 +341,7 @@ const Main = () => {
                 </ModalBody>
             </Modal>
 
-            <section className="bg-black h-auto rounded-lg container mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 grid">
+            <section className="bg-black h-auto rounded-lg container mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid">
                 {productos.map((producto, index) => (
                 <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
                 ))}       

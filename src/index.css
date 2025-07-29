@@ -4,18 +4,8 @@
 
 @layer utilities {
     .custom-size {
-        /*  
-            ancho minimo sera 50px.
-            El ancho preferido es el de 90vw (90% del ancho de la ventana).
-            El ancho maximo de es de 23.5rem(tamaño original que utilice)
-        */
-        width: clamp(50px, 50vw, 23.5rem);
-
-        /* Mantiene automaticamente la proporcion de la altura segun el ancho */
-        aspect-ratio: 23.5 / 31.5;
-
-        /* Deja que el navegador calcule la altura basada en el aspect-ratio */
-        height: auto;
+        width: 20.5rem;
+        height: 31.5rem;
     }
 
     .cuenta {
