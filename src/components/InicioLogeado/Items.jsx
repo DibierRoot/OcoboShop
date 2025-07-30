@@ -3,7 +3,7 @@ const Items = ({manejarCarrito, index, producto, abrirModal}) => {
       <div className="group">
         <form>
           <article className="text-white p-5 rounded-md" key={index} onClick={() => abrirModal()}>
-            <img className="w-64 h-72" src={producto.imagen} alt="ImagenProducto" />
+            <img className="w-40 md:w-48 lg:w-56 xl:w-64 h-56 md:h-64 lg:h-72 xl:h-80" src={producto.imagen} alt="ImagenProducto" />
             <p className="text-white">{producto.nombre}</p>
             <p>${producto.precio} COP</p>
           </article>

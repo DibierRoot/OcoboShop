@@ -207,33 +207,36 @@ const Main = () => {
       <main className="bg-black pb-10">
 
         <form onSubmit={click}>
-          <div className="bg-NegroSuave relative max-w-2xl sm:max-w-2xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
-            <div className="flex flex-col sm:flex-col md:flex-col xl:flex-row 2xl:flex-row items-center gap-10 sm:gap-10 md:gap-10 xl:gap-56 2xl:gap-56">
-              <div>
-                <img className="h-52 w-52 rounded-full" src={Logo} alt="" />
-                <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 p-2 mt-4 outline-none bg-NegroSuave" />
+          <div className="bg-NegroSuave relative max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
+            <div className="flex flex-col md:flex-row items-center gap-10 sm:gap-10 md:gap-16 lg:gap-24 xl:gap-52 2xl:gap-56">
+              
+              <div className="flex justify-center items-center flex-col">
+                <img className="h-40 sm:h-52 w-40 sm:w-52 rounded-full" src={Logo} alt="" />
+                <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 w-40 sm:w-44 md:w-48 lg:w-52 xl:w-56 p-2 mt-4 outline-none bg-NegroSuave" />
               </div>
-              <div className="flex flex-row gap-8">
+
+              <div className="flex flex-col sm:flex-row gap-8">
                 <div className="flex flex-col gap-8">
                   <label htmlFor="">Correo Electronico <br /> 
-                    <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                    <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
                   <label htmlFor="">Correo Recuperacion <br />
-                    <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" />
+                    <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
                   <label className="relative" htmlFor="">Contraseña <br />
-                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="password" disabled />
+                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="password" disabled />
                     <img className="absolute right-0 rounded-e-md top-6 h-9 w-9 cursor-pointer" src={Lapiz} alt="" onClick={() => abrirModal()} />
                   </label>
                 </div>
 
                 <div className="flex flex-col gap-8">
-                  <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Numero telefonico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Numero telefonico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
                 </div>
+
               </div>
             </div>
             <button className="bg-RosadoOcobo p-3 rounded-md">Aceptar Cambios</button>
@@ -248,7 +251,7 @@ const Main = () => {
           <ModalBody>
             <form onSubmit={click}>
               <div className="bg-NegroSuave text-white max-w-5xl w-full p-6 rounded-t-lg">
-                <h1 className="text-3xl font-semibold pb-12">INGRESE SU NUEVA CONTRASEÑA</h1>
+                <h1 className="text-lg sm:text-xl xl:text-2xl 2xl:textl-3xl font-semibold pb-12">INGRESE SU NUEVA CONTRASEÑA</h1>
                 <div className="items-center flex flex-col gap-11">
                   <div className="relative">
                     <label>Contraseña <span className="text-RosadoOcobo">*</span> <br /> <span> <img className="absolute right-1 mt-0.5 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>

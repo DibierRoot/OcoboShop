@@ -290,8 +290,8 @@ const Main = () => {
                 <ModalBody className="bg-NegroSuave md:max-w-3xl xl:max-w-4xl 2xl:max-w-4xl text-white p-6 rounded-lg">
                     <form>
                     <div className="relative flex flex-col md:flex-row sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
-                        <div className="flex flex-col gap-7">
-                            <img className="relative w-64 h-72 md:custom-size" src={productoSeleccionado?.imagen} alt="imagen"/>
+                        <div className="flex flex-col justify-center items-center md:justify-normal md:items-start gap-7">
+                            <img className="relative w-40 md:w-48 lg:w-56 xl:w-64 h-56 md:h-64 lg:h-72 xl:h-80" src={productoSeleccionado?.imagen} alt="imagen"/>
                             <div className="mb-5">
                                 <h1 className="font-bold text-xl">{productoSeleccionado?.nombre}</h1>
                                 <p>{productoSeleccionado?.descripcion}</p>
@@ -332,8 +332,8 @@ const Main = () => {
 
                         <p className="absolute right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
                             
-                        <div className="flex flex-col gap-8">
-                            <button className="mt-12 bg-RosadoOcobo rounded-md p-3" type="button" onClick={manejarCompra}>Comprar</button>
+                        <div className="mt-5 md:mt-12 flex flex-row md:flex-col gap-8">
+                            <button className="bg-RosadoOcobo rounded-md p-3" type="submit">Comprar</button>
                             <button className="border-2 bg-black rounded-md p-3" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
                         </div>
                     </div>
@@ -341,12 +341,13 @@ const Main = () => {
                 </ModalBody>
             </Modal>
 
-            <section className="bg-black h-auto rounded-lg container mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid">
-                {productos.map((producto, index) => (
-                <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
-                ))}       
-            </section>
-
+            <div className="flex justify-center items-center">
+                <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
+                    {productos.map((producto, index) => (
+                    <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
+                    ))}       
+                </section>
+            </div>
 
         </main>
 

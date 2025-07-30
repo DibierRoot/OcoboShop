@@ -305,7 +305,7 @@ const Header = ({login}) => {
                 </div>
             </div>
                 <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
-                    <div className={`bg-black h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "sm:carrito" : "w-0"}`}>
+                    <div className={`bg-black h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "sm:carrito" : "sm:w-0"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                         <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
