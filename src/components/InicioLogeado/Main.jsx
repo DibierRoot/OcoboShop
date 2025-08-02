@@ -226,16 +226,6 @@ const Main = () => {
       return productoSeleccionado?.toLocaleString('es-CO');
   }
 
-  const [hoverCategoria1, setHoverCategoria1] = useState(false)
-
-  const [hoverCategoria2, setHoverCategoria2] = useState(false)
-
-  const [hoverCategoria3, setHoverCategoria3] = useState(false)
-
-  const [hoverCategoria4, setHoverCategoria4] = useState(false)
-
-  const [hoverCategoria5, setHoverCategoria5] = useState(false)
-
 
     return (
 
@@ -251,31 +241,46 @@ const Main = () => {
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
                             {/* <input className="text-white border-b-2 border-white h-10 p-2 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" /> */}
-                            <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
-                                <span><img className="relative h-10 w-10 transition-opacity" src={hoverCategoria1 ? CamisetaIconHover : CamisetaIcon} alt="Carrito" /></span>
-                                <p>Camisetas</p>
+                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                                <span className="relative h-10 w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CamisetaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CamisetaIconHover} alt="Carrito" />
+                                </span>
+                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Camisetas</p>
                             </div>
                             
-                            <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("5")} onMouseEnter={() => setHoverCategoria2(true)} onMouseLeave={() => setHoverCategoria2(false)}>
-                                <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria2 ? EsqueletoIconHover : EsqueletoIcon} alt="Carrito" /></span>
-                                <p>Esqueletos</p>
+                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                                <span className="relative h-10 w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
+                                </span>
+                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Esqueletos</p>
                             </div>
 
-                            <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("6")} onMouseEnter={() => setHoverCategoria3(true)} onMouseLeave={() => setHoverCategoria3(false)}>
-                                <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria3 ? ChaquetaIconHover : ChaquetaIcon} alt="Carrito" /></span>
-                                <p>Chaquetas</p>
+                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                                <span className="relative h-10 w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
+                                </span>
+                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Chaquetas</p>
                             </div>
                         </div>
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
-                            <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("3")} onMouseEnter={() => setHoverCategoria4(true)} onMouseLeave={() => setHoverCategoria4(false)}>
-                                <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria4 ? PlumillaIconHover : PlumillaIcon} alt="Carrito" /></span>
-                                <p>Picks</p>
+                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                                <span className="relative h-10 w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={PlumillaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
+                                </span>
+                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Picks</p>
                             </div>
 
-                            <div className="flex flex-col hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer items-center" onClick={() => obtenerProducto("4")} onMouseEnter={() => setHoverCategoria5(true)} onMouseLeave={() => setHoverCategoria5(false)}>
-                                <span><img className="h-10 w-10 transition-opacity" src={hoverCategoria5 ? CapuchaIconHover : CapuchaIcon} alt="Carrito" /></span>
-                                <p>Accesorios</p>
+                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                                <span className="relative h-10 w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CapuchaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CapuchaIconHover} alt="Carrito" />
+                                </span>
+                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Accesorios</p>
                             </div>
                         </div>
 
