@@ -254,7 +254,7 @@ const Main = () => {
                     <form>
                     <div className="relative flex flex-col md:flex-row sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
                         <div className="flex flex-col justify-center items-center md:justify-normal md:items-start gap-7">
-                            <img className="relative w-40 md:w-48 lg:w-56 xl:w-64 h-56 md:h-64 lg:h-72 xl:h-80" src={productoSeleccionado?.imagen} alt="imagen"/>
+                            <img className="relative w-36 md:w-48 lg:w-56 xl:w-64 h-48 md:h-64 lg:h-72 xl:h-80" src={productoSeleccionado?.imagen} alt="imagen"/>
                             <div className="mb-5">
                                 <h1 className="font-bold text-xl">{productoSeleccionado?.nombre}</h1>
                                 <p>{productoSeleccionado?.descripcion}</p>
@@ -262,14 +262,16 @@ const Main = () => {
                         </div>
                                     
                         <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-6">
-                            <div className="flex flex-col gap-2">
-                                <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Color:</h2>
-                                <input disabled readOnly className={`w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 ${productoSeleccionado?.idColor == 1 ? "rounded-full bg-black border-2": productoSeleccionado?.idColor == 2 ? "rounded-full bg-RosadoOcobo border-2" : "error"}`} />
-                            </div>
+                            <div className="flex gap-7 md:flex-col md:gap-2">
+                                <div className="flex flex-col gap-2">
+                                    <h2 className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Color:</h2>
+                                    <input disabled readOnly className={`w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 ${productoSeleccionado?.idColor == 1 ? "rounded-full bg-black border-2": productoSeleccionado?.idColor == 2 ? "rounded-full bg-RosadoOcobo border-2" : "error"}`} />
+                                </div>
 
-                            <div>
-                                <h2 className={productoSeleccionado?.idTalla == 7 ? "hidden" : "text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium"}>Talla:</h2>
-                                <input className={productoSeleccionado?.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 text-center"} readOnly disabled value={productoSeleccionado?.idTalla == 1 ? "XS" : productoSeleccionado?.idTalla == 2 ? "S" : productoSeleccionado?.idTalla == 3 ? "M" : productoSeleccionado?.idTalla == 4 ? "L" : productoSeleccionado?.idTalla == 5 ? "XL" : productoSeleccionado?.idTalla == 6 ? "XXL" : "error"} />
+                                <div className="flex flex-col gap-2">
+                                    <h2 className={productoSeleccionado?.idTalla == 7 ? "hidden" : "text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium"}>Talla:</h2>
+                                    <input className={productoSeleccionado?.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 w-9 sm:w-10 md:w-12 lg:w-14 h-9 sm:h-10 md:h-12 lg:h-14 text-center"} readOnly disabled value={productoSeleccionado?.idTalla == 1 ? "XS" : productoSeleccionado?.idTalla == 2 ? "S" : productoSeleccionado?.idTalla == 3 ? "M" : productoSeleccionado?.idTalla == 4 ? "L" : productoSeleccionado?.idTalla == 5 ? "XL" : productoSeleccionado?.idTalla == 6 ? "XXL" : "error"} />
+                                </div>
                             </div>
 
                             <div>

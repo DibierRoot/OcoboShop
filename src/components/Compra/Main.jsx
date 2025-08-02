@@ -66,6 +66,9 @@ const Main = () => {
               icon: 'success',
               title: 'Factura generada correctamente',
               text: 'La factura se ha generado exitosamente.',
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
             });
             window.open(data.invoiceUrl, "_blank"); // Abre el PDF en nueva pestaña
             localStorage.removeItem("carrito");
@@ -88,9 +91,9 @@ const Main = () => {
 };
 
   return (
-    <main className="text-white">
+    <main className="text-white pb-8">
       <form className="compra-formulario">
-        <div className="bg-NegroSuaveSuavizado relative max-w-3xl text-center rounded-lg my-10 mx-auto -mt-36 py-24">
+        <div className="bg-NegroSuaveSuavizado relative max-w-xs sm:max-w-xl md:max-w-3xl text-center rounded-lg my-10 mx-auto -mt-36 py-24">
             <h1 className="text-2xl font-bold"> Seleccione su método de pago</h1>
             <div className="mt-10">
             <select className="bg-RosadoOcobo p-2 rounded-md" value={metodoPago} onChange={(e) => setMetodoPago(e.target.value)}>

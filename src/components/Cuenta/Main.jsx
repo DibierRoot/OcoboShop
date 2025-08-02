@@ -107,7 +107,9 @@ const Main = () => {
               icon: 'error',
               title: 'Oops...',
               text: '¡El correo electronico no es valido!',
-              // footer: '<a href="">Why do I have this issue?</a>'
+              iconColor: "#E96BA3",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
           })
           return
       }
@@ -204,14 +206,14 @@ const Main = () => {
   const [productos, setVerProductos] = useState([])
 
     return (
-      <main className="bg-black pb-10">
+      <main className="bg-NegroSuave md:bg-black pb-10">
 
         <form onSubmit={click}>
-          <div className="bg-NegroSuave relative max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
+          <div className="bg-NegroSuave relative max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
             <div className="flex flex-col md:flex-row items-center gap-10 sm:gap-10 md:gap-16 lg:gap-24 xl:gap-52 2xl:gap-56">
               
               <div className="flex justify-center items-center flex-col">
-                <img className="h-40 sm:h-52 w-40 sm:w-52 rounded-full" src={Logo} alt="" />
+                <img className="h-36 sm:h-52 w-36 sm:w-52 rounded-full" src={Logo} alt="" />
                 <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 w-40 sm:w-44 md:w-48 lg:w-52 xl:w-56 p-2 mt-4 outline-none bg-NegroSuave" />
               </div>
 

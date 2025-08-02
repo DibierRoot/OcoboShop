@@ -107,8 +107,8 @@ const Main = ({addCliente}) => {
           confirmButtonColor: "#E96BA3",
           background: "#1C1C1C"
         });
-        navigate("/Inicio");
-      }
+        navigate("/Inicio/Productos/");
+      } 
     } catch (error) {
       console.log(error)
       Swal.fire({
@@ -145,6 +145,7 @@ const Main = ({addCliente}) => {
             <button className="bg-RosadoOcobo p-3 rounded-md" disabled={cargando} >
               {cargando ? "Registrando..." : "Crear Cuenta"}
             </button>
+            <p>{mensaje}</p>
             <p className="absolute left-10 bottom-10 cursor-pointer hover:text-RosadoOcobo hover:duration-300">
               <Link to={"/"}>
                 ← Atras

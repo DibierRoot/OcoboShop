@@ -1,13 +1,13 @@
 const Items = ({manejarCarrito, index, producto, abrirModal}) => {
     return (
-      <div className="group">
+      <div className="relative group">
         <form>
           <article className="text-white p-5 rounded-md" key={index} onClick={() => abrirModal()}>
-            <img className="w-40 md:w-48 lg:w-56 xl:w-64 h-56 md:h-64 lg:h-72 xl:h-80" src={producto.imagen} alt="ImagenProducto" />
+            <img className="w-36 md:w-48 lg:w-56 xl:w-64 h-48 md:h-64 lg:h-72 xl:h-80" src={producto.imagen} alt="ImagenProducto" />
             <p className="text-white">{producto.nombre}</p>
+            <input className={producto.idTalla == 7 ? "hidden" : "bg-RosadoOcobo md:p-1 lg:p-2 xl:p-3 2xl:p-3 w-7 sm:w-8 md:w-9 lg:w-10 h-7 sm:h-8 md:h-9 lg:h-10 text-center"} readOnly disabled value={producto.idTalla == 1 ? "XS" : producto.idTalla == 2 ? "S" : producto.idTalla == 3 ? "M" : producto.idTalla == 4 ? "L" : producto.idTalla == 5 ? "XL" : producto.idTalla == 6 ? "XXL" : "error"} />
             <p>${producto.precio} COP</p>
           </article>
-          {/* <button className="absolute -mt-40 ml-24 bg-black p-3 rounded-md border border-white opacity-0 group-hover:opacity-100 transition-opacity hover:transition-colors hover:bg-RosadoOcobo duration-700 hover:duration-500" type="button" onClick={manejarCarrito}>Agregar al carrito</button> */}
         </form>
       </div>
 

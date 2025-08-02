@@ -16,7 +16,33 @@ const Header = () => {
     const [productosEnCarrito, setProductosEnCarrito] = useState([]);
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
     const [cantidad, setCantidad] = useState(1);
+    const [desplegable, setDesplegable] = useState(false)
     const productosEnCarritoMemo = useMemo(() => productosEnCarrito, [productosEnCarrito]);
+
+    const [MostrarHeader, setMostrarHeader] = useState (true);
+    const [ultimoScrollY, setUltimoScrollY] = useState(0);
+
+    const abrir = () => {
+        setDesplegable(!desplegable)
+    }
+
+    useEffect (() => {
+        const handlescroll = () => {
+            const scrollY = window.scrollY;
+
+        if (scrollY > ultimoScrollY) {
+            setMostrarHeader(false);
+        } else {
+            setMostrarHeader(true);
+        }
+
+        setUltimoScrollY(scrollY);
+        }
+
+        window.addEventListener("scroll", handlescroll);
+
+        return () => window.removeEventListener("scroll", handlescroll)
+    }, [ultimoScrollY])
 
      // Obtener información del cliente al cargar el componente
     useEffect(() => {
@@ -222,18 +248,20 @@ const Header = () => {
     const [isOpenCart, setIsOpenCart] = useState(false)
 
     return (
-        <header>
-            <div className="p-4 relative">
+        <header className="">
+            <div className="">
 
-                <nav className="flex items-center justify-between px-6 relative">
-                    <div className="flex hover:bg-black transition-all duration-500">
-                        <p className="cursor-default">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">V</span></p>
-                        <div className="absolute left-0 w-48 mt-9 bg-black text-white rounded-lg shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-50 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
+                    <div className="group flex hover:bg-black" onMouseEnter={abrir} onMouseLeave={abrir}>
+                        <p className="cursor-default">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
+                        <div className="fixed top-0 right-0 left-0 w-48 bg-black text-white rounded-lg opacity-0 group-hover:opacity-100 group-hover:transition-transform translate-y-14 group-hover:translate-y-16 ease-in-out duration-300">
                             <ul className="p-2">
                                 <Link to={"/Inicio/Cuenta"}>
                                     <li className="hover:bg-RosadoOcobo p-2 rounded cursor-pointer">Cuenta</li>
                                 </Link>
-                                <li className="hover:bg-RosadoOcobo p-2 rounded cursor-pointer">Historial</li>
+                                <Link to={"/Inicio/HistorialdeCompras"}>
+                                    <li className="hover:bg-RosadoOcobo p-2 rounded cursor-pointer">Historial</li>
+                                </Link>
                                 <li onClick={cerrarSesion} className="hover:bg-RosadoOcobo p-2 rounded cursor-pointer">Cerrar sesion</li>
                             </ul>
                         </div>
@@ -256,7 +284,7 @@ const Header = () => {
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
             </div>
                 <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
-                    <div className={`bg-black h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "sm:carrito" : "sm:w-0"}`}>
+                    <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                         <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
@@ -277,7 +305,7 @@ const Header = () => {
 
                             </section>
 
-                            <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex gap-5"}>
+                            <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex flex-col sm:flex-row gap-5"}>
                                 <button className="bg-RosadoOcobo rounded-md p-3" onClick={procederCompra}>Comprar</button>
                                 <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
                                 <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Eliminar Todo</button>

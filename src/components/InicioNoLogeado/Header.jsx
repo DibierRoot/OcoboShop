@@ -18,7 +18,26 @@ const Header = ({login}) => {
     const [cantidad, setCantidad] = useState(1);
     const productosEnCarritoMemo = useMemo(() => productosEnCarrito, [productosEnCarrito]);
 
+    const [MostrarHeader, setMostrarHeader] = useState (true);
+    const [ultimoScrollY, setUltimoScrollY] = useState(0);
 
+    useEffect (() => {
+        const handlescroll = () => {
+            const scrollY = window.scrollY;
+
+        if (scrollY > ultimoScrollY) {
+            setMostrarHeader(false);
+        } else {
+            setMostrarHeader(true);
+        }
+
+        setUltimoScrollY(scrollY);
+        }
+
+        window.addEventListener("scroll", handlescroll);
+
+        return () => window.removeEventListener("scroll", handlescroll)
+    }, [ultimoScrollY])
 
     const [cliente, setCliente] = useState({
         correo: "",
@@ -257,7 +276,8 @@ const Header = ({login}) => {
         <header>
             <div className="p-4">
 
-                <nav className="flex items-center justify-between px-6 relative">
+                    <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-30 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
+
 
                     <p className="cursor-pointer" onClick={() => setIsOpenAccount(true)}>Cuenta</p>
 
@@ -276,9 +296,9 @@ const Header = ({login}) => {
 
             </div>
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
-                <div className={`fixed z-50 bg-Suavizado mr-auto w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenAccount && "invisible"}`}>
+                <div className={`fixed z-40 bg-Suavizado ml-auto w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenAccount && "invisible"}`}>
                     <form onSubmit={click}>
-                        <div className={`bg-black h-dvh relative transition-all duration-500 p-8 ${isOpenAccount ? "cuenta" : "w-0"}`}>
+                        <div className={`bg-black z-50 h-dvh fixed left-0 right-0 top-0 transition-transform duration-300 ease-in-out sm:cuenta p-8 ${isOpenAccount ? "translate-x-0" : "-translate-x-full"}`}>
                             <label onClick={() => setIsOpenAccount(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                             <div className="mt-8">
                                 <label htmlFor="">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /><input id="correo" name="correo" value={correo} onChange={handleChange} className="rounded-md h-9 w-full text-black outline-none p-2" type="text" /></label> <br /> <br />
@@ -293,6 +313,7 @@ const Header = ({login}) => {
                                             ¿Olvidaste tu contraseña?
                                         </Link>
                                 </div>
+                                <p className="text-center mt-2 text-RosadoOcobo">{mensaje}</p>
                             </div>
                             <div className="absolute flex gap-8 bottom-10 mx-auto">
                                 <a href="https://www.facebook.com/share/15GyFs1qrd/" className=""><i className="fa-brands fa-facebook fa-3x"></i></a>
@@ -305,7 +326,7 @@ const Header = ({login}) => {
                 </div>
             </div>
                 <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
-                    <div className={`bg-black h-dvh ml-auto relative transition-all duration-500 p-8 ${isOpenCart ? "sm:carrito" : "sm:w-0"}`}>
+                    <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                         <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
@@ -326,7 +347,7 @@ const Header = ({login}) => {
 
                             </section>
 
-                            <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex gap-5"}>
+                            <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex flex-col sm:flex-row gap-5"}>
                                 <button className="bg-RosadoOcobo rounded-md p-3">Comprar</button>
                                 <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
                                 <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Borrar Todo</button>
