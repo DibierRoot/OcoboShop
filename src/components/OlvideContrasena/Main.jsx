@@ -7,138 +7,84 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const Main = ({addCliente}) => {
 
-  const [verContrasena, setVerContrasena] = useState(false);
+    const navigate = useNavigate();
 
-  const verOcultarContrasena = () => {
-    setVerContrasena(!verContrasena);
-  };
+    const [correo, setCorreo] = useState("");
+    const [cargando, setCargando] = useState(false);
 
-  const navigate = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  const [cliente, setCliente] = useState ({
-    nombre: "",
-    correo: "",
-    contrasena: "",
-  });
+        // Validación del correo
+        let regexEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
-  const [cargando, setCargando] = useState(false)
-
-  const [mensaje, setMensaje] = useState("");
-
-  const {nombre, correo, contrasena} = cliente;
-
-  const click = async (e) => {
-    e.preventDefault();
-
-    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if (!nombre.trim()) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "¡Escribe algun nombre para que podamos indentificarte!",
-        iconColor: "#E96BA3",
-        confirmButtonColor: "#E96BA3",
-        background: "#1C1C1C"
-      });
-      return;
-    }
-
-    // Validación del formato de correo
-    if (!regexEmail.test(correo)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "¡El correo electrónico no es válido!",
-        iconColor: "#E96BA3",
-        confirmButtonColor: "#E96BA3",
-        background: "#1C1C1C"
-      });
-      return;
-    }
-    // Validación de contraseña (mínimo 8 caracteres)
-    if (contrasena.length < 8) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "¡La contraseña debe tener como mínimo 8 dígitos!",
-        iconColor: "#E96BA3",
-        confirmButtonColor: "#E96BA3",
-        background: "#1C1C1C"
-      });
-      return;
-    }
-
-    // Añadir los datos del cliente al estado global (si se usa alguno)
-    addCliente ({
-      ...cliente,
-    });
-
-  try {
-      // Enviar solicitud de registro al backend
-      const response = await axios.post(
-        "http://localhost/OcoboBack-end/CRUD/",
-        {
-          action: "register",
-          nombre,
-          correo,
-          contrasena,
-        },
-        { 
-          withCredentials: true,  // Permitir el envío de cookies de sesión
+        if (!correo.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Asegúrate de llenar el campo de correo!',
+            });
+            return;
         }
-      );
 
-      const mensajeRespuesta = response.data.message;
-      setMensaje(mensajeRespuesta);
-      const id = response.data.idCliente;
-      console.log(response.data)
+        if (!regexEmail.test(correo)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡El correo electrónico no es válido!',
+            });
+            return;
+        }
 
-      // Si el registro fue exitoso
-      if (mensajeRespuesta === "Registro exitoso") {
-        localStorage.setItem("idCliente", id)
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Registro exitoso",
-          showConfirmButton: false,
-          timer: 1500,
-          iconColor: "#E96BA3",
-          confirmButtonColor: "#E96BA3",
-          background: "#1C1C1C"
-        });
-        navigate("/Inicio");
-      }
-    } catch (error) {
-      console.log(error)
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "¡Error! No se pudo completar el registro.",
-      });
-    } finally {
-      setCargando(false);
-    }
-  };
+        setCargando(true);
 
+        try {
+            const response = await axios.post('http://localhost/OcoboBack-end/RecuperarContrasena/', {
+                action: "sendCode",
+                correo
+            });
+            
+            const mensajeRespuesta = response.data.message;
+            console.log(mensajeRespuesta)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+            Swal.fire({
+                position: "center",
+                icon: mensajeRespuesta === 'Correo de recuperación no encontrado' ? "error" : "success",
+                title: mensajeRespuesta,
+                showConfirmButton: false,
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C",
+                iconColor: "#E96BA3",
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C"
+            });
 
-    setCliente ({
-      ...cliente,
-      [name]: value,
-    });
-  }
+            if (mensajeRespuesta !== 'Correo de recuperación no encontrado') {
+              console.log(mensajeRespuesta)
+                navigate("/"); // Redirigir a la página de inicio o a otro lugar si es necesario
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Error en la solicitud!',
+            });
+        } finally {
+            setCargando(false);
+        }
+    };
 
-  const [productos, setVerProductos] = useState([])
+    const handleChange = (e) => {
+        setCorreo(e.target.value);
+    };
 
     return (
-      <main>
+      <main className="bg-NegroSuave md:bg-black pb-10">
 
-        <form onSubmit={click}>
-          <div className="bg-NegroSuave relative max-w-4xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
+        <form onSubmit={handleSubmit}>
+          <div className="bg-NegroSuave relative max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
             <h1 className="text-4xl">¡OLVIDE MI CONTRASEÑA!</h1>
+            <p className="text-center">Escribe el correo electrónico con el que te registraste para recuperar tu cuenta y recibir las instrucciones para restablecerla.</p>
             <label htmlFor="correo">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="correo" name="correo" value={correo} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
             <button className="bg-RosadoOcobo p-3 rounded-md" disabled={cargando} >
               {cargando ? "Recuperando..." : "Recuperar"}

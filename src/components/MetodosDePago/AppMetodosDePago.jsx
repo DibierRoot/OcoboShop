@@ -1,7 +1,7 @@
 import Header from "./Header.jsx"
 import Main from "./Main.jsx"
 
-const AppInicio = () => {
+const AppMetodosDePago = () => {
   return (
     <div className="bg-black text-white">
 
@@ -13,4 +13,4 @@ const AppInicio = () => {
   )
 }
 
-export default AppInicio
+export default AppMetodosDePago

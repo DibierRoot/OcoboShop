@@ -21,6 +21,8 @@ const Header = ({login}) => {
     const [MostrarHeader, setMostrarHeader] = useState (true);
     const [ultimoScrollY, setUltimoScrollY] = useState(0);
 
+
+
     useEffect (() => {
         const handlescroll = () => {
             const scrollY = window.scrollY;
@@ -59,6 +61,20 @@ const Header = ({login}) => {
     const [isOpenAccount, setIsOpenAccount] = useState(false)
 
     const [isOpenCart, setIsOpenCart] = useState(false)
+
+    useEffect(() => {
+        if (isOpenAccount || isOpenCart) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        }
+    }, [isOpenAccount, isOpenCart])
+
+    if (!open) return null;
 
     const borrarTodoCarrito = () => {
         Swal.fire({
@@ -279,9 +295,9 @@ const Header = ({login}) => {
                     <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-30 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
 
 
-                    <p className="cursor-pointer" onClick={() => setIsOpenAccount(true)}>Cuenta</p>
+                    <p className="cursor-pointer hover:text-RosadoOcobo duration-300" onClick={() => setIsOpenAccount(true)}>Cuenta</p>
 
-                    <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold">OCOBO</h1>
+                    <h1 className="cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center font-bold">OCOBO</h1>
 
 
                         <div className="" onClick={() => setIsOpenCart(true)}>

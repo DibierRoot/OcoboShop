@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Items from "./Items";
 
 const Main = () => {
 
@@ -32,7 +33,7 @@ const Main = () => {
       }
 
       setLoading(true);
-      setError(null)
+      setError(null)      
 
       console.log(accion, response.data)
       } catch (error) {
@@ -58,7 +59,7 @@ const Main = () => {
   return (
     <main className="pb-8">
       <div className="text-white bg-NegroSuaveSuavizado relative max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col -mt-36 py-14">
-        <h2 className="text-2xl font-semibold">Historial de Facturas</h2>
+        <h2 className="text-2xl font-semibold">Historial de Compras</h2>
         <div className="mt-9 flex flex-col items-center gap-10 p-7 overflow-y-auto h-[calc(100vh-64px)]">
           {loading ? (
             <p>Cargando...</p>
@@ -68,20 +69,7 @@ const Main = () => {
             <p>No tiene historial de facturas.</p>
           ) : (
             facturas.map((factura, index) => (
-              <div key={index}>
-                <div className="h-encabezado">
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Factura: {factura.codigoFactura}</p>
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Fecha: {fechas[index]?.fechaCompra}</p> 
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Metodo de Pago: {fechas[index]?.metodoPago}</p> 
-                </div>
-
-                <div className="h-contenido">
-                  <a href={factura.ruta_pdf} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
-                    <button className="mt-2 text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium ursor-pointer hover:text-RosadoOcobo hover:duration-300">Visualizar factura</button>
-                  </a>
-                  <hr className="mt-5" />
-                </div>
-              </div>
+              <Items clienteId={clienteId} fechas={fechas} setFechas={setFechas} index={index} factura={factura} key={index} />
             ))
           )}
         </div>

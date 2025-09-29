@@ -27,6 +27,18 @@ const Main = () => {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null)
   const [filtro, setFiltro] = useState("")
 
+    useEffect(() => {
+      if (verDetalles) {
+          document.body.style.overflow = 'hidden';
+      } else {
+          document.body.style.overflow = '';
+      }
+
+      return () => {
+          document.body.style.overflow = '';
+      }
+    }, [verDetalles])
+
   const [cantidad, setCantidad] = useState(1);
 
   const abrirModal = (producto) => {
@@ -94,43 +106,9 @@ const Main = () => {
       }
   };
 
-  const manejarCompra = () => {
-      try {
-          const clienteId = localStorage.getItem('idCliente'); // Verificamos si el idCliente está guardado
-          if (!clienteId) {
-              // Si no está autenticado, redirigimos al login
-              navigate("/login"); // Ajusta esta ruta al lugar donde tengas la pantalla de login
-              return;
-          }
-    
-          // Crear un objeto con los datos del producto y la cantidad seleccionada
-          const productoConId = {
-              ...productoSeleccionado,
-              id: productoSeleccionado.id || uuidv4(),
-              cantidad
-          };
-   
-          // Crear un objeto con los datos de la compra, sin necesidad de actualizar el carrito
-          const datosCompra = {
-              productos: [productoConId], // Colocamos el producto directamente en los datos de compra
-              precioTotal: productoConId.precio * productoConId.cantidad
-          };
-    
-          // Redirigir a la página de compra con los datos de la compra
-          navigate("/Inicio/Productos/Compra", { state: datosCompra });
-      } catch (error) {
-          console.error("Error en el proceso de compra:", error);
-          Swal.fire({
-              icon: 'error',
-              title: 'Error en el proceso de compra',
-              text: error.message,
-          });
-      }
-  };
-
 
   // Función para agregar el producto al carrito
-  const manejarCarrito = () => {
+    const manejarCarrito = () => {
       const carritoExistente = JSON.parse(localStorage.getItem('carrito')) || [];
       const productoConId = {
           ...productoSeleccionado,
@@ -179,52 +157,52 @@ const Main = () => {
               background: "#1C1C1C"
           });
       }
-  };
+    };
     
-  // Función para editar la cantidad en el carrito
-  const editarCantidadCarrito = (idProducto, nuevaCantidad) => {
-      const carritoExistente = JSON.parse(localStorage.getItem('carrito')) || [];
-      const productoExistente = carritoExistente.find(item => item.idProducto === idProducto);
-    
-      if (productoExistente) {
-          productoExistente.cantidad = nuevaCantidad;
-    
-        const carritoActualizado = carritoExistente.map(item =>
-            item.idProducto === idProducto ? productoExistente : item
-        );
-        localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
-    
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: 'Cantidad actualizada correctamente',
-            showConfirmButton: false,
-            timer: 1500,
-            iconColor: "#E96BA3",
-            confirmButtonColor: "#E96BA3",
-            background: "#1C1C1C"
-        });
-      }
-  };
+    // Función para editar la cantidad en el carrito
+    const editarCantidadCarrito = (idProducto, nuevaCantidad) => {
+        const carritoExistente = JSON.parse(localStorage.getItem('carrito')) || [];
+        const productoExistente = carritoExistente.find(item => item.idProducto === idProducto);
+        
+        if (productoExistente) {
+            productoExistente.cantidad = nuevaCantidad;
+        
+            const carritoActualizado = carritoExistente.map(item =>
+                item.idProducto === idProducto ? productoExistente : item
+            );
+            localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+        
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: 'Cantidad actualizada correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: "#E96BA3",
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C"
+            });
+        }
+    };
 
-  // Obtener los productos desde el backend
-  const obtenerDatos = async () => {
-      axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
-        .then(response => {
-          setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
-        })
-        .catch(error => {
-          console.error("Hubo un error al obtener las imágenes: ", error);
-        });
-  }
+    // Obtener los productos desde el backend
+    const obtenerDatos = async () => {
+        axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
+            .then(response => {
+            setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
+            })
+            .catch(error => {
+            console.error("Hubo un error al obtener las imágenes: ", error);
+            });
+    }
 
-  useEffect(() => {
-      obtenerDatos();
-  }, [])
+    useEffect(() => {
+        obtenerDatos();
+    }, [])
 
-  const milesSeleccionado = (productoSeleccionado) => {
-      return productoSeleccionado?.toLocaleString('es-CO');
-  }
+    const milesSeleccionado = (productoSeleccionado) => {
+        return productoSeleccionado?.toLocaleString('es-CO');
+    }
 
 
     return (
@@ -234,53 +212,53 @@ const Main = () => {
 
                 <nav>
                     <div className="mt-5">
-                        <p className="cursor-pointer hover:text-RosadoOcobo hover:underline duration-300 text-center" onClick={() => obtenerDatos()}>Mostrar Todo</p>
+                        <p className="cursor-pointer hover:text-RosadoOcobo duration-300 text-center" onClick={() => obtenerDatos()}>Mostrar Todo</p>
                     </div>
 
-                    <div className="justify-center items-center gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28 flex flex-col md:flex-row">
+                    <div className="cursor-default justify-center items-center gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28 flex flex-col md:flex-row">
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
                             {/* <input className="text-white border-b-2 border-white h-10 p-2 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" /> */}
-                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CamisetaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CamisetaIconHover} alt="Carrito" />
                                 </span>
-                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Camisetas</p>
+                                <p>Camisetas</p>
                             </div>
                             
-                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
                                 </span>
-                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Esqueletos</p>
+                                <p>Esqueletos</p>
                             </div>
 
-                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
                                 </span>
-                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Chaquetas</p>
+                                <p>Chaquetas</p>
                             </div>
                         </div>
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
-                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={PlumillaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
                                 </span>
-                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Picks</p>
+                                <p>Picks</p>
                             </div>
 
-                            <div className="flex flex-col  items-center" onClick={() => obtenerProducto("1")} onMouseEnter={() => setHoverCategoria1(true)} onMouseLeave={() => setHoverCategoria1(false)}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CapuchaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CapuchaIconHover} alt="Carrito" />
                                 </span>
-                                <p className="hover:text-RosadoOcobo hover:underline duration-300 cursor-pointer">Accesorios</p>
+                                <p>Accesorios</p>
                             </div>
                         </div>
 
@@ -291,8 +269,8 @@ const Main = () => {
 
             
 
-            <Modal className="outline-none fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={verDetalles}>
-                <ModalBody className="bg-NegroSuave md:max-w-3xl xl:max-w-4xl 2xl:max-w-4xl text-white p-6 rounded-lg">
+            <div className={`outline-none flex fixed inset-0 z-50 items-center justify-center bg-Suavizado bg-opacity-50 ${!verDetalles ? "hidden" : ""}`}>
+                <div className="bg-NegroSuave md:max-w-3xl text-white p-6 rounded-lg">
                     <form>
                     <div className="relative flex flex-col md:flex-row sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
                         <div className="flex flex-col justify-center items-center md:justify-normal md:items-start gap-7">
@@ -337,16 +315,15 @@ const Main = () => {
                             </div>
                         </div>
 
-                        <p className="absolute right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
+                        <p className="absolute -mt-1 right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
                             
-                        <div className="mt-5 md:mt-12 flex flex-row md:flex-col gap-8">
-                            <button className="bg-RosadoOcobo rounded-md p-3" type="submit" onClick={manejarCompra}>Comprar</button>
+                        <div className="mt-5 md:mt-8 flex flex-row md:flex-col gap-8">
                             <button className="border-2 bg-black rounded-md p-3" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
                         </div>
                     </div>
                 </form>
-                </ModalBody>
-            </Modal>
+                </div>
+            </div>
 
             <div className="flex justify-center items-center">
                 <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">

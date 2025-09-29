@@ -10,7 +10,7 @@ const Header = () => {
 
                     <div className="text-center">
 
-                        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">
+                        <h1 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">
                             <Link to={"/Inicio/Productos"}>
                                 Cuenta
                             </Link>

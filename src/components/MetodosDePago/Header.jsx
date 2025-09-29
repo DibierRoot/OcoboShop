@@ -278,7 +278,9 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <h1 className="cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
+                    <Link to={"/Inicio/Productos"}>
+                        <h1 className="cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
+                    </Link>
 
 
                         <div onClick={() => setIsOpenCart(true)}>

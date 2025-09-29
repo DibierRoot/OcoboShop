@@ -134,10 +134,10 @@ const Main = ({addCliente}) => {
   const [productos, setVerProductos] = useState([])
 
     return (
-      <main>
+      <main className="bg-NegroSuave md:bg-black pb-10">
 
         <form onSubmit={click}>
-          <div className="bg-NegroSuave relative max-w-4xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
+          <div className="bg-NegroSuave relative max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">
             <h1 className="text-4xl">¡HOLA!</h1>
             <label htmlFor="nombre">Nombre <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="nombre" name="nombre" value={nombre} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
             <label htmlFor="correo">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="correo" name="correo" value={correo} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>

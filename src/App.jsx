@@ -7,6 +7,7 @@ import AppOlvideContrasena from "./components/OlvideContrasena/AppOlvideContrase
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import AppHistorial from "./components/Historial/AppHIstorial"
+import AppMetodosDePago from "./components/MetodosDePago/AppMetodosDePago"
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
       <Route path="/Inicio/HistorialdeCompras" element={<AppHistorial />} />
       <Route path="/Inicio/Cuenta" element={<AppCuenta />} />
       <Route path="/Inicio/Productos/Compra" element={<AppCompra />} />
+      <Route path="/Inicio/MetodosDePago" element={<AppMetodosDePago />} />
     </Routes>
   )
 }
