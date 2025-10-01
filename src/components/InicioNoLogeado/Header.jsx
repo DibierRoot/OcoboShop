@@ -240,7 +240,7 @@ const Header = ({login}) => {
         })
 
         try {
-            const response = await axios.post('https://ocoboshopback.lovestoblog.com/OcoboBack-end/CRUD/', {
+            const response = await axios.post('https://ocoboshopback.lovestoblog.com/OcoboBack-end/CRUD/index.php', {
                 action: "login",
                 correo,
                 contrasena
