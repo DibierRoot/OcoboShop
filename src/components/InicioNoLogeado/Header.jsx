@@ -244,7 +244,7 @@ const Header = ({login}) => {
                 action: "login",
                 correo,
                 contrasena
-            });
+            }, { withCredentials: true});
             const mensajeRespuesta = response.data.message;
             setMensaje(mensajeRespuesta)
             // console.log(response.data)
