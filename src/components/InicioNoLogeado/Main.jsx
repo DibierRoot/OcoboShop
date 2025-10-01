@@ -189,7 +189,7 @@ const Main = () => {
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
         })
         .catch(error => {
-          console.log(response.data);
+          console.log(error.data);
           console.error("Hubo un error al obtener las imágenes: ", error);
         });
   }
