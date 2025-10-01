@@ -186,6 +186,7 @@ const Main = () => {
   const obtenerDatos = async () => {
       axios.get('https://ocoboback-end.unaux.com/OcoboBack-end/VerPedidos/')  // Ruta del archivo PHP
         .then(response => {
+          console.log(response.data);
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
         })
         .catch(error => {
