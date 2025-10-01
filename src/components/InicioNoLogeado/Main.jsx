@@ -184,7 +184,7 @@ const Main = () => {
 
   // Obtener los productos desde el backend
   const obtenerDatos = async () => {
-      axios.get('http://ocoboshopback.lovestoblog.com/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
+      axios.get('https://ocoboshopback.lovestoblog.com/OcoboBack-end/VerProductos/index.php')  // Ruta del archivo PHP
         .then(response => {
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
         })
