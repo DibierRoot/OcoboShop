@@ -10,7 +10,6 @@ const Items = ({manejarCarrito, index, producto, abrirModal}) => {
           </article>
         </form>
       </div>
-
     )
 }
 

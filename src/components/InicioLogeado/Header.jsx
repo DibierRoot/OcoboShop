@@ -44,7 +44,7 @@ const Header = () => {
         return () => window.removeEventListener("scroll", handlescroll)
     }, [ultimoScrollY])
 
-     // Obtener información del cliente al cargar el componente
+    // Obtener información del cliente al cargar el componente
     useEffect(() => {
         const fetchClientData = async () => {
             try {
@@ -259,12 +259,12 @@ const Header = () => {
     if (!open) return null;
 
     return (
-        <header className="">
-            <div className="">
+        <header>
+            <div>
 
                 <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-50 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
                     <div className="group flex hover:bg-black" onMouseEnter={abrir} onMouseLeave={abrir}>
-                        <p className="cursor-default">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
+                        <p className="cursor-default text-sm lg:text-base">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
                         <div className="fixed top-0 right-0 left-0 w-48 bg-black text-white rounded-lg opacity-0 group-hover:opacity-100 group-hover:transition-transform translate-y-14 group-hover:translate-y-16 ease-in-out duration-300">
                             <ul className="p-2">
                                 <Link to={"/Inicio/Cuenta"}>

@@ -7,7 +7,6 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
 
     const idFactura = fechas[index]?.idFactura;
     const estado = fechas[index]?.idEstadoFactura
-    const cancelar = 2;
     const hoy = new Date().toLocaleDateString("sv-SE");
     console.log(hoy)
     console.log(Date())
@@ -33,7 +32,6 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
               const response = await axios.post('http://localhost/OcoboBack-end/CRUD/', {
                 action: "cancelarCompra",
                 idFactura: idFactura,
-                cancelar: cancelar
               });
               console.log(response.data.message)
               if (response.data.message) {
@@ -81,7 +79,7 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
                   <a href={factura.ruta_pdf} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
                     <button className="mt-2 text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium hover:text-RosadoOcobo hover:duration-300">Visualizar factura</button>
                   </a>
-                  <p>{fechas[index]?.idEstadoFactura == 1 ? "Compra Activa" : "Compra Cancelada"}</p>
+                  <p>{fechas[index]?.idEstadoFactura == 1 ? "Compra Activa" : fechas[index]?.idEstadoFactura == 3 ? "Producto Entregado" : "Compra Cancelada"}</p>
                   <button className={fechas[index]?.idEstadoFactura == 1 && fechas[index]?.fechaCompra == hoy ? "bg-RosadoOcobo rounded-md p-3" : "hidden"} onClick={cancelarProducto}>Cancelar Compra</button>
 
                 </div>

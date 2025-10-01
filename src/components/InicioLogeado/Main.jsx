@@ -227,7 +227,7 @@ const Main = () => {
                                 <p>Camisetas</p>
                             </div>
                             
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("4")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
@@ -235,7 +235,7 @@ const Main = () => {
                                 <p>Esqueletos</p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("5")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
@@ -245,7 +245,7 @@ const Main = () => {
                         </div>
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("2")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={PlumillaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
@@ -253,7 +253,7 @@ const Main = () => {
                                 <p>Picks</p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("3")}>
                                 <span className="relative h-10 w-10">
                                     <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CapuchaIcon} alt="Carrito" />
                                     <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CapuchaIconHover} alt="Carrito" />

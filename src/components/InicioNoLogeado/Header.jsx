@@ -240,14 +240,14 @@ const Header = ({login}) => {
         })
 
         try {
-            const response = await axios.post('http://localhost/OcoboBack-end/CRUD/', {
+            const response = await axios.post('http://ocoboshopback.lovestoblog.com/OcoboBack-end/CRUD/', {
                 action: "login",
                 correo,
                 contrasena
             });
             const mensajeRespuesta = response.data.message;
             setMensaje(mensajeRespuesta)
-            console.log(response.data)
+            // console.log(response.data)
             const id = response.data.idCliente;
 
             if (mensajeRespuesta === 'Login exitoso') {
