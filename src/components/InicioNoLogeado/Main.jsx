@@ -187,6 +187,7 @@ const Main = () => {
       axios.get('/api/index.php')  // Ruta del archivo PHP
         .then(response => {
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
+          console.log(response.data);
         })
         .catch(error => {
           console.error("Hubo un error al obtener las imágenes: ", error);
