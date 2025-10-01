@@ -186,10 +186,10 @@ const Main = () => {
   const obtenerDatos = async () => {
       axios.get('https://ocoboback-end.unaux.com/OcoboBack-end/VerPedidos/')  // Ruta del archivo PHP
         .then(response => {
-          console.log(response.data);
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
         })
         .catch(error => {
+          console.log(response.data);
           console.error("Hubo un error al obtener las imágenes: ", error);
         });
   }
