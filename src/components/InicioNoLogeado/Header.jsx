@@ -240,11 +240,11 @@ const Header = ({login}) => {
         })
 
         try {
-            const response = await axios.post('https://ocoboback-end.unaux.com/OcoboBack-end/CRUD/index.php', {
+            const response = await axios.post('http://localhost/OcoboBack-end/CRUD/', {
                 action: "login",
                 correo,
                 contrasena
-            }, { withCredentials: true});
+            });
             const mensajeRespuesta = response.data.message;
             setMensaje(mensajeRespuesta)
             // console.log(response.data)
@@ -312,7 +312,7 @@ const Header = ({login}) => {
 
             </div>
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
-                <div className={`fixed z-40 bg-Suavizado ml-auto w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenAccount && "invisible"}`}>
+                <div className={`fixed z-40 bg-Suavizado ml-auto w-full h-dvh top-0 left-0 transition-all duration-300 ${!isOpenAccount && "invisible"}`}>
                     <form onSubmit={click}>
                         <div className={`bg-black z-50 h-dvh fixed left-0 right-0 top-0 transition-transform duration-300 ease-in-out sm:cuenta p-8 ${isOpenAccount ? "translate-x-0" : "-translate-x-full"}`}>
                             <label onClick={() => setIsOpenAccount(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
@@ -341,7 +341,7 @@ const Header = ({login}) => {
                     </form>
                 </div>
             </div>
-                <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
+                <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-300 ${!isOpenCart && "invisible"}`}>
                     <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
@@ -364,7 +364,7 @@ const Header = ({login}) => {
                             </section>
 
                             <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex flex-col sm:flex-row gap-5"}>
-                                <button className="bg-RosadoOcobo rounded-md p-3">Comprar</button>
+                                <button className="bg-RosadoOcobo rounded-md p-3" onClick={() => {setIsOpenAccount(true); setIsOpenCart(false)}}>Comprar</button>
                                 <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
                                 <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Borrar Todo</button>
                             </div>

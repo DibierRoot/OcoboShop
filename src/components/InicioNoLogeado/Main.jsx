@@ -184,12 +184,11 @@ const Main = () => {
 
   // Obtener los productos desde el backend
   const obtenerDatos = async () => {
-      axios.get('https://ocoboback-end.unaux.com/OcoboBack-end/VerPedidos/')  // Ruta del archivo PHP
+      axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
         .then(response => {
           setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
         })
         .catch(error => {
-          console.log(error.data);
           console.error("Hubo un error al obtener las imágenes: ", error);
         });
   }
