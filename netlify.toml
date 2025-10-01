@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://ocoboshopback.lovestoblog.com/OcoboBack-end/CRUD/:splat"
+  status = 200
+  force = true
