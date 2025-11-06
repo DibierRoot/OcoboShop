@@ -19,7 +19,18 @@ export default {
 
       transitionProperty: {
         "Transicion1": "all 500ms ease",
-      }
+      },
+
+      keyframes: {
+        "moverTren": {
+          "0%": { transform: "translateX(100%)"},
+          "100%": { transform: "translateX(-100%)"},
+        },
+      },
+
+      animation: {
+        "tren": "moverTren 20s linear infinite",
+      },
     },
   },
   plugins: [],

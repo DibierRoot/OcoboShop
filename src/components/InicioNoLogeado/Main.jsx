@@ -264,7 +264,7 @@ const Main = () => {
 
             
 
-<div className={`outline-none flex fixed inset-0 z-50 items-center justify-center bg-Suavizado bg-opacity-50 ${!verDetalles ? "hidden" : ""}`}>
+            <div className={`outline-none flex fixed inset-0 z-50 items-center justify-center bg-Suavizado bg-opacity-50 ${!verDetalles ? "hidden" : ""}`}>
                 <div className="bg-NegroSuave md:max-w-3xl text-white p-6 rounded-lg">
                     <form>
                     <div className="relative flex flex-col md:flex-row sm:gap-3 md:gap-5 lg:gap-9 xl:gap-9 2xl:gap-9">
@@ -304,16 +304,16 @@ const Main = () => {
 
                             <div className="">
                                 <h2 className="font-medium">Ingrese la cantidad que desea comprar:</h2>
-                                <button className="bg-RosadoOcobo p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={disminuirCantidad}>-</button>
+                                <button className="bg-RosadoOcobo border-t-2 border-t-RosadoOcobo border-l-2 border-l-RosadoOcobo border-RosadoSuave border-b-2 border-r-2 active:border-NegroSuave active:border-t-2 active:border-l-2 active:border-b-2 active:border-r-2 duration-100 transition-all p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={disminuirCantidad}>-</button>
                                 <input className="bg-NegroSuave w-10 text-center outline-none" value={cantidad} readOnly disabled type="text" max={productoSeleccionado?.cantidad} />
-                                <button className="bg-RosadoOcobo p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={aumentarCantidad}>+</button>
+                                <button className="bg-RosadoOcobo border-t-2 border-t-RosadoOcobo border-l-2 border-l-RosadoOcobo border-RosadoSuave border-b-2 border-r-2 active:border-NegroSuave active:border-t-2 active:border-l-2 active:border-b-2 active:border-r-2 duration-100 transition-all p-2 sm:p-2 md:p-2 lg:p-3 xl:p-3 2xl:p-3 rounded-full" type="button" onClick={aumentarCantidad}>+</button>
                             </div>
                         </div>
 
                         <p className="absolute -mt-1 right-3 cursor-pointer" onClick={() => abrirModal()}>x</p>
                             
                         <div className="mt-5 md:mt-8 flex flex-row md:flex-col gap-8">
-                            <button className="border-2 bg-black rounded-md p-3" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
+                            <button className="border-2 bg-black rounded-md p-3 hover:bg-RosadoOcobo duration-500 transition-all ease-in-out" type="button" onClick={manejarCarrito}>Agregar al carrito</button>
                         </div>
                     </div>
                 </form>

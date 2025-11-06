@@ -261,10 +261,9 @@ const Header = () => {
     return (
         <header>
             <div>
-
                 <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-50 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
                     <div className="group flex hover:bg-black" onMouseEnter={abrir} onMouseLeave={abrir}>
-                        <p className="cursor-default text-sm lg:text-base">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
+                        <p className="cursor-default text-sm lg:text-base">¡Hola! {nombre?.split(' ')[0] || nombre?.substring(0, 25)} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
                         <div className="fixed top-0 right-0 left-0 w-48 bg-black text-white rounded-lg opacity-0 group-hover:opacity-100 group-hover:transition-transform translate-y-14 group-hover:translate-y-16 ease-in-out duration-300">
                             <ul className="p-2">
                                 <Link to={"/Inicio/Cuenta"}>
@@ -278,7 +277,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <h1 className="cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
+                    <h1 className="absolute left-[45%] cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
 
 
                         <div onClick={() => setIsOpenCart(true)}>
@@ -292,8 +291,21 @@ const Header = () => {
                 </nav>
 
             </div>
+
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
             </div>
+                <div className="mt-2 text-white bg-NegroSuave overflow-hidden">
+                    <div className="flex gap-10 animate-tren">
+                        <p className="font-medium">Mejor Sin ti</p>
+                        <p className="font-medium">Bella Dvrmiente</p>
+                        <p className="font-medium">Duelos</p>
+                        <p className="font-medium">Epistemologia</p>
+                        <p className="font-medium">Miedo a Mi Sombra</p>
+                        <p className="font-medium">Genesis</p>
+                        <p className="font-medium">L0v3</p>
+                        <p className="font-medium">Dulce Miel</p>
+                    </div>
+                </div>
                 <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
                     <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
@@ -317,9 +329,9 @@ const Header = () => {
                             </section>
 
                             <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex flex-col sm:flex-row gap-5"}>
-                                <button className="bg-RosadoOcobo rounded-md p-3" onClick={procederCompra}>Comprar</button>
-                                <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
-                                <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Eliminar Todo</button>
+                                <button className="bg-RosadoOcobo border-t-2 border-t-RosadoOcobo border-l-2 border-l-RosadoOcobo border-RosadoSuave border-b-2 border-r-2 active:border-NegroSuave active:border-t-2 active:border-l-2 active:border-b-2 active:border-r-2 duration-100 transition-all rounded-md p-3" onClick={procederCompra}>Comprar</button>
+                                <button className="border-2 bg-NegroSuave hover:bg-RosadoOcobo duration-500 transition-all ease-in-out rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
+                                <button className="border-2 bg-black hover:bg-RosadoOcobo duration-500 transition-all ease-in-out rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Eliminar Todo</button>
                             </div>
 
                             {/* <p className="text-center">¡No hay nada aqui!</p>
@@ -327,7 +339,6 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            
         </header>
         
     )
