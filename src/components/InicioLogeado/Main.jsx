@@ -66,7 +66,7 @@ const Main = () => {
   */
   const obtenerProducto = async (filtro) => {
       try {
-          const response = await axios.post('http://localhost/OcoboBack-end/Filtros/', {
+          const response = await axios.post('http://192.168.18.42/OcoboBack-end/Filtros/', {
               action: "obtenerProducto", // Acción en el backend para buscar productos
               filtro: filtro             // Filtro de búsqueda (nombre o correo)
           });
@@ -199,7 +199,7 @@ const Main = () => {
 
     // Obtener los productos desde el backend
     const obtenerDatos = async () => {
-        axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
+        axios.get('http://192.168.18.42/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
             .then(response => {
             setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
             })
