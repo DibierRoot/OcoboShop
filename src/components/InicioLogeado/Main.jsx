@@ -66,7 +66,7 @@ const Main = () => {
   */
   const obtenerProducto = async (filtro) => {
       try {
-          const response = await axios.post('http://192.168.18.42/OcoboBack-end/Filtros/', {
+          const response = await axios.post('http://localhost/OcoboBack-end/Filtros/', {
               action: "obtenerProducto", // Acción en el backend para buscar productos
               filtro: filtro             // Filtro de búsqueda (nombre o correo)
           });
@@ -199,7 +199,7 @@ const Main = () => {
 
     // Obtener los productos desde el backend
     const obtenerDatos = async () => {
-        axios.get('http://192.168.18.42/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
+        axios.get('http://localhost/OcoboBack-end/VerProductos/')  // Ruta del archivo PHP
             .then(response => {
             setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
             })
@@ -338,17 +338,17 @@ const Main = () => {
                 </div>
 
                 <div className="flex justify-center items-center">
+                    <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
                         {productos.length < 1 ? (
-                                <p className="p-10 text-center text-xl">Oops, hasta el momento no hay productos publicados</p>
+                                <p className="p-10 text-center text-xl ">Oops, hasta el momento no hay productos publicados</p>
                             ) : (
-                                <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
-                                    productos.map((producto, index) => (
-                                    <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
-                                    ))
-                                </section>
+                                productos.map((producto, index) => (
+                                <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
+                                ))
                             )
                         }
         
+                    </section>
                 </div>
 
             </main>
