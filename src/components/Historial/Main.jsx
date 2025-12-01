@@ -22,6 +22,7 @@ const Main = () => {
         idCliente: clienteId,
       })
       setData(response.data)
+      console.log("error", response.data.message)
       if (!clienteId) {
         Swal.fire({
           title: "Usuario no encontrado",

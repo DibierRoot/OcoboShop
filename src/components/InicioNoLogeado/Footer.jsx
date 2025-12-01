@@ -1,4 +1,5 @@
 import Logo from "/src/assets/image/Logo.jpeg"
+import { Link } from "react-router-dom";
 
 const Footer = ({obtenerProducto}) => {
     return (
@@ -59,8 +60,12 @@ const Footer = ({obtenerProducto}) => {
                     <div>
                         <h1 className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl mt-6 font-medium">AYUDA</h1>
                         <div className="mt-5 flex flex-col gap-3">
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Metodo de Pago</p>
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Contacto</p>
+                            <Link to={"/MetodosDePago"}>
+                                <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Metodo de Pago</p>                            
+                            </Link>
+                            <Link to="/Contacto">
+                                <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Contacto</p>
+                            </Link>
                         </div>
                     </div>
                 </div>

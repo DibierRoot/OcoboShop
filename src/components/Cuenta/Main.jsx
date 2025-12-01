@@ -9,7 +9,7 @@ import ojito from "/src/assets/icons/IconOculto.png";
 
 const Main = () => {
 
-      // Estados para manejar los valores de edición
+    // Estados para manejar los valores de edición
     const [nombre, setNombre] = useState(""); // Para almacenar el nombre del usuario
     const [correo, setCorreo] = useState("");
     const [contrasena, setContrasena] = useState("");
@@ -219,11 +219,11 @@ const Main = () => {
 
               <div className="flex flex-col sm:flex-row gap-8">
                 <div className="flex flex-col gap-8">
-                  <label htmlFor="">Correo Electronico <br /> 
+                  <label htmlFor="">Correo Electrónico <br /> 
                     <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
-                  <label htmlFor="">Correo Recuperacion <br />
+                  <label htmlFor="">Correo Recuperación <br />
                     <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
@@ -236,7 +236,7 @@ const Main = () => {
                 <div className="flex flex-col gap-8">
                   <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
                   <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Numero telefonico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Número telefónico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
                 </div>
 
               </div>

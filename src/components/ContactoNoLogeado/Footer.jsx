@@ -47,23 +47,25 @@ const Footer = ({obtenerProducto}) => {
                     <div className="hidden md:block w-0.5 h-72 bg-white md:ml-20 xl:ml-52 2xl:ml-56 md:m-5"></div>
                     <div>
                         <h1 className="text-base sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl mt-6 font-medium">OCOBOSHOP</h1>
-                        <div className="mt-5 flex flex-col gap-3">
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer" onClick={() => obtenerProducto("1")}>Camisetas</p>
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer"onClick={() => obtenerProducto("5")}>Chamarras</p>
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer"onClick={() => obtenerProducto("6")}>Esqueletos</p>
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer"onClick={() => obtenerProducto("3")}>Picks/Plumillas</p>
-                            <p className="hover:text-RosadoOcobo duration-300 cursor-pointer"onClick={() => obtenerProducto("4")}>Accesorios</p>
-                        </div>
+                        <Link to={"/Inicio/Productos"}>
+                            <div className="mt-5 flex flex-col gap-3">
+                                    <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Camisetas</p>
+                                    <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Chamarras</p>
+                                    <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Esqueletos</p>
+                                    <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Picks/Plumillas</p>
+                                    <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Accesorios</p>
+                            </div>
+                        </Link>
 
                     </div>
                     <div className="w-0.5 h-72 bg-white md:ml-20 xl:ml-52 2xl:ml-56 m-5"></div>
                     <div>
                         <h1 className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl mt-6 font-medium">AYUDA</h1>
                         <div className="mt-5 flex flex-col gap-3">
-                            <Link to={"/Inicio/MetodosDePago"}>
+                            <Link to="/MetodosDePago">
                                 <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Metodo de Pago</p>                            
                             </Link>
-                            <Link to="/Inicio/Contacto">
+                            <Link to="/">
                                 <p className="hover:text-RosadoOcobo duration-300 cursor-pointer">Contacto</p>
                             </Link>
                         </div>

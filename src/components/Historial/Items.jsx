@@ -70,7 +70,7 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
     return (
         <div key={index} className="bg-NegroSuave p-2">
                 <div className="">
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Factura: {factura.codigoFactura}</p>
+                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Factura #{fechas.length - index} </p>
                   <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Fecha: {fechas[index]?.fechaCompra}</p> 
                   <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Metodo de Pago: {fechas[index]?.metodoPago}</p> 
                 </div>

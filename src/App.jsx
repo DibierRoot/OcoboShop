@@ -7,7 +7,10 @@ import AppOlvideContrasena from "./components/OlvideContrasena/AppOlvideContrase
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import AppHistorial from "./components/Historial/AppHIstorial"
-import AppMetodosDePago from "./components/MetodosDePago/AppMetodosDePago"
+import AppMetodosDePagoNoLogeado from "./components/MetodosDePagoNoLogeado/AppMetodosDePagoNoLogeado"
+import AppMetodosDePagoLogeado from "./components/MetodosDePagoLogeado/AppMetodosDePagoLogeado"
+import AppContactoLogeado from "./components/ContactoLogeado/AppContactoLogeado"
+import AppContactoNoLogeado from "./components/ContactoNoLogeado/AppContactoNoLogeado"
 
 const App = () => {
 
@@ -17,7 +20,7 @@ const App = () => {
     setClientes ([...clientes, cliente]);
   }
 
-    const [clientesLogin, setClientesLogin] = useState ('');
+  const [clientesLogin, setClientesLogin] = useState ('');
 
   const login = (clienteLogin) => {
     setClientesLogin([...clientesLogin, clienteLogin])
@@ -32,7 +35,10 @@ const App = () => {
       <Route path="/Inicio/HistorialdeCompras" element={<AppHistorial />} />
       <Route path="/Inicio/Cuenta" element={<AppCuenta />} />
       <Route path="/Inicio/Productos/Compra" element={<AppCompra />} />
-      <Route path="/Inicio/MetodosDePago" element={<AppMetodosDePago />} />
+      <Route path="/MetodosDePago" element={<AppMetodosDePagoNoLogeado login={login} />} />
+      <Route path="/Inicio/MetodosDePago" element={<AppMetodosDePagoLogeado />} />
+      <Route path="/Contacto" element={<AppContactoNoLogeado login={login} />} />
+      <Route path="/Inicio/Contacto" element={<AppContactoLogeado />} />
     </Routes>
   )
 }
