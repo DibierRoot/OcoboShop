@@ -59,7 +59,7 @@ const Main = () => {
 
   return (
     <main className="pb-8">
-      <div className="text-white bg-NegroSuaveSuavizado relative max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col -mt-36 py-14">
+      <div className="text-white bg-NegroSuaveSuavizado relative max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col -mt-36 py-14">
         <h2 className="text-2xl font-semibold">Historial de Compras</h2>
         <div className="mt-9 flex flex-col items-center gap-10 p-7 overflow-y-auto h-[calc(100vh-64px)]">
           {loading ? (
@@ -77,7 +77,7 @@ const Main = () => {
         <div className="mt-6">
           <p className="absolute left-10 bottom-10 cursor-pointer hover:text-RosadoOcobo hover:duration-300">
             <Link to={"/Inicio/Productos"}>
-              ← Atras
+              ← Volver al Inicio
             </Link>
           </p>
         </div>

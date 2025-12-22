@@ -291,16 +291,15 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <h1 className="absolute left-[45%] cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
+                    <div className="absolute left-[46%] sm:left-[47%] md:left-[45%] cursor-default">
+                        <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold hidden md:inline">OCOBO</h1>
+                        <img src={Logo} className="w-10 h-10 md:hidden" />
+                    </div>
 
 
-                        <div onClick={() => setIsOpenCart(true)}>
-                            <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
-                        </div>
-
-
-                        {/* <a>ABOUT</a> */}
-
+                    <div onClick={() => setIsOpenCart(true)}>
+                        <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
+                    </div>
 
                 </nav>
 
@@ -308,7 +307,7 @@ const Header = () => {
 
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
             </div>
-                <div className="mt-2 text-white bg-NegroSuave overflow-hidden">
+                <div className="mt-2 text-xs md:text-base text-white bg-NegroSuave overflow-hidden">
                     <div className="flex gap-10 animate-tren">
                         <a href="https://open.spotify.com/intl-es/track/4qE5SZs8wKXXQ5aPBOJWya?si=707b076dc71f4669" className="font-medium hover:text-RosadoOcobo duration-300">Mejor Sin ti</a>
                         <p className="font-medium">Bella Dvrmiente</p>
@@ -330,7 +329,7 @@ const Header = () => {
                                 <div className="mt-80">
                                     <div className="flex flex-col gap-3">
                                         <p className="text-center">¡No hay nada aqui!</p>
-                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button>
+                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a Comprar</button>
                                     </div>
                                 </div>
 

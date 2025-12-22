@@ -9,7 +9,21 @@ import ItemsCarrito from "./ItemsCarrito";
 
 const Header = () => {
 
-    const idCliente = localStorage.getItem('idCliente')
+    const idCliente = localStorage.getItem('idCliente');
+    const navigate1 = useNavigate();
+
+    if (!idCliente) {
+        Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '¡No hemos encontrado una identidad, por favor inicie sesion nuevamente!',
+              iconColor: "#F28B82",
+              confirmButtonColor: "#E96BA3",
+              background: "#1C1C1C"
+        });
+        navigate1("/")
+    }
+
     const [nombre, setNombre] = useState(""); // Para almacenar el nombre del usuario
 
     const [productosSeleccionados, setProductosSeleccionados] = useState([]);
@@ -44,7 +58,7 @@ const Header = () => {
         return () => window.removeEventListener("scroll", handlescroll)
     }, [ultimoScrollY])
 
-     // Obtener información del cliente al cargar el componente
+    // Obtener información del cliente al cargar el componente
     useEffect(() => {
         const fetchClientData = async () => {
             try {
@@ -66,7 +80,6 @@ const Header = () => {
                 }
 
                 const data = await response.json();
-                console.log("Respuesta del servidor:", data); // Debug
 
                 if (data) {
                     setNombre(data.nombre); // Inicializar el nombre del usuario
@@ -160,6 +173,7 @@ const Header = () => {
         setProductoSeleccionado(null);
     };
 
+    // Mostrar todos los productos del carrito
     useEffect(() => {
         const syncCarritoConLocalStorage = () => {
             const carritoLocal = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -259,12 +273,11 @@ const Header = () => {
     if (!open) return null;
 
     return (
-        <header className="">
-            <div className="">
-
+        <header>
+            <div>
                 <nav className={`flex items-center justify-between px-6 p-4 fixed top-0 right-0 left-0 transition-transform duration-300 bg-black z-50 ${MostrarHeader ? "translate-y-0" : "-translate-y-full"}`}>
                     <div className="group flex hover:bg-black" onMouseEnter={abrir} onMouseLeave={abrir}>
-                        <p className="cursor-default">¡Hola! {nombre?.split(' ')[0]} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
+                        <p className="cursor-default text-sm lg:text-base">¡Hola! {nombre?.split(' ')[0] || nombre?.substring(0, 25)} <span className="text-xs">{desplegable ? "^" : "v"}</span></p>
                         <div className="fixed top-0 right-0 left-0 w-48 bg-black text-white rounded-lg opacity-0 group-hover:opacity-100 group-hover:transition-transform translate-y-14 group-hover:translate-y-16 ease-in-out duration-300">
                             <ul className="p-2">
                                 <Link to={"/Inicio/Cuenta"}>
@@ -278,22 +291,20 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <Link to={"/Inicio/Productos"}>
-                        <h1 className="cursor-default text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold">OCOBO</h1>
-                    </Link>
+                    <div className="absolute left-[46%] sm:left-[47%] md:left-[45%] cursor-default">
+                        <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold hidden md:inline">OCOBO</h1>
+                        <img src={Logo} className="w-10 h-10 md:hidden" />
+                    </div>
 
 
-                        <div onClick={() => setIsOpenCart(true)}>
-                            <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
-                        </div>
-
-
-                        {/* <a>ABOUT</a> */}
-
+                    <div onClick={() => setIsOpenCart(true)}>
+                        <img className="h-11 sm:h-11 md:h-12 lg:h-14 xl:h-16 2xl:h-16 w-11 sm:w-11 md:w-12 lg:w-14 xl:w-16 2xl:w-16" src={Carrito} alt="Carrito" />
+                    </div>
 
                 </nav>
 
             </div>
+
             <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
             </div>
                 <div className={`fixed z-50 bg-Suavizado w-full h-dvh top-0 left-0 transition-all duration-500 ${!isOpenCart && "invisible"}`}>
@@ -306,7 +317,7 @@ const Header = () => {
                                 <div className="mt-80">
                                     <div className="flex flex-col gap-3">
                                         <p className="text-center">¡No hay nada aqui!</p>
-                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button>
+                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a Comprar</button>
                                     </div>
                                 </div>
 
@@ -319,9 +330,9 @@ const Header = () => {
                             </section>
 
                             <div className={!productosEnCarrito.length ? "hidden" : "my-10 flex flex-col sm:flex-row gap-5"}>
-                                <button className="bg-RosadoOcobo rounded-md p-3" onClick={procederCompra}>Comprar</button>
-                                <button className="border-2 bg-NegroSuave rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
-                                <button className="border-2 bg-black rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Eliminar Todo</button>
+                                <button className="bg-RosadoOcobo border-t-2 border-t-RosadoOcobo border-l-2 border-l-RosadoOcobo border-RosadoSuave border-b-2 border-r-2 active:border-NegroSuave active:border-t-2 active:border-l-2 active:border-b-2 active:border-r-2 duration-100 transition-all rounded-md p-3" onClick={procederCompra}>Comprar</button>
+                                <button className="border-2 bg-NegroSuave hover:bg-RosadoOcobo duration-500 transition-all ease-in-out rounded-md p-3" type="button" onClick={eliminarSeleccionados}>Eliminar Seleccionados</button>
+                                <button className="border-2 bg-black hover:bg-RosadoOcobo duration-500 transition-all ease-in-out rounded-md p-3" type="button" onClick={borrarTodoCarrito}>Eliminar Todo</button>
                             </div>
 
                             {/* <p className="text-center">¡No hay nada aqui!</p>
@@ -329,7 +340,6 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            
         </header>
         
     )

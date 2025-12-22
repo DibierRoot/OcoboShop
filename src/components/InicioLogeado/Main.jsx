@@ -222,48 +222,48 @@ const Main = () => {
                         <p className="cursor-pointer hover:text-RosadoOcobo duration-300 text-center" onClick={() => obtenerDatos()}>Mostrar Todo</p>
                     </div>
 
-                    <div className="cursor-default justify-center items-center gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28 flex flex-col md:flex-row">
+                    <div className="cursor-default justify-center items-center gap-7 text-sm md:text-base sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28 flex flex-col sm:flex-row">
 
-                        <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
+                        <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28">
                             {/* <input className="text-white border-b-2 border-white h-10 p-2 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" /> */}
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col items-center" onClick={() => obtenerProducto("1")}>
-                                <span className="hover:animate-bounce relative h-10 w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-300 ease-in-out" src={CamisetaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-300 ease-in-out" src={CamisetaIconHover} alt="Carrito" />
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CamisetaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CamisetaIconHover} alt="Carrito" />
                                 </span>
                                 <p>Camisetas</p>
                             </div>
                             
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("4")}>
-                                <span className="hover:animate-bounce relative h-10 w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-300 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-300 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
                                 </span>
                                 <p>Esqueletos</p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("5")}>
-                                <span className="hover:animate-bounce relative h-10 w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-300 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-300 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
                                 </span>
                                 <p>Chaquetas</p>
                             </div>
                         </div>
 
-                        <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-24 xl:gap-28 2xl:gap-28">
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("2")}>
-                                <span className="hover:animate-bounce relative h-10 w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-300 ease-in-out" src={PlumillaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-300 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
+                        <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28">
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={PlumillaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
                                 </span>
                                 <p>Picks</p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("3")}>
-                                <span className="hover:animate-bounce relative h-10 w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-300 ease-in-out" src={CapuchaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-300 ease-in-out" src={CapuchaIconHover} alt="Carrito" />
+                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CapuchaIcon} alt="Carrito" />
+                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CapuchaIconHover} alt="Carrito" />
                                 </span>
                                 <p>Accesorios</p>
                             </div>

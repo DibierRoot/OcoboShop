@@ -7,7 +7,7 @@ const Footer = ({obtenerProducto}) => {
             <div className="flex flex-col md:flex-row justify-center items-center md:items-start relative">
                 <div className="flex">
                     <div className="m-6">
-                        <img className="h-20 sm:h-24 md:h-28 xl:h-40 2xl:h-40 w-20 sm:w-24 md:w-28 xl:w-40 2xl:w-40" src={Logo} alt="Logo" />
+                        <img className="h-20 sm:h-24 md:h-28 2xl:h-40 w-20 sm:w-24 md:w-28 2xl:w-40" src={Logo} alt="Logo" />
                         <p className="xl:text-xl 2xl:text-xl font-medium mt-8 text-center cursor-pointer">Sobre Ocobo</p>
                     </div>
                     <div className="w-0.5 h-72 bg-white xl:ml-10 2xl:ml-10 my-5"></div>
@@ -44,7 +44,7 @@ const Footer = ({obtenerProducto}) => {
                 </div>
 
                 <div className="flex">
-                    <div className="hidden md:block w-0.5 h-72 bg-white md:ml-20 xl:ml-52 2xl:ml-56 md:m-5"></div>
+                    <div className="hidden md:block w-0.5 h-72 bg-white md:ml-20 2xl:ml-56 md:m-5"></div>
                     <div>
                         <h1 className="text-base sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl mt-6 font-medium">OCOBOSHOP</h1>
                         <div className="mt-5 flex flex-col gap-3">
@@ -56,7 +56,7 @@ const Footer = ({obtenerProducto}) => {
                         </div>
 
                     </div>
-                    <div className="w-0.5 h-72 bg-white md:ml-20 xl:ml-52 2xl:ml-56 m-5"></div>
+                    <div className="w-0.5 h-72 bg-white md:ml-20 2xl:ml-56 m-5"></div>
                     <div>
                         <h1 className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl mt-6 font-medium">AYUDA</h1>
                         <div className="mt-5 flex flex-col gap-3">

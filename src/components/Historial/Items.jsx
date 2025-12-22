@@ -68,22 +68,25 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
   }
 
     return (
-        <div key={index} className="bg-NegroSuave p-2">
-                <div className="">
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Factura #{fechas.length - index} </p>
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Fecha: {fechas[index]?.fechaCompra}</p> 
-                  <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Metodo de Pago: {fechas[index]?.metodoPago}</p> 
-                </div>
+        <div key={index} className="bg-NegroSuave md:w-anchoEspecial p-2">
+          <div className="relative md:flex">
+            <div>
+              <div>
+                <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Factura #{fechas.length - index} </p>
+                <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Fecha: {fechas[index]?.fechaCompra}</p> 
+                <p className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium">Metodo de Pago: {fechas[index]?.metodoPago}</p> 
+              </div>
 
-                <div className="flex flex-col gap-3">
-                  <a href={factura.ruta_pdf} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
-                    <button className="mt-2 text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium hover:text-RosadoOcobo hover:duration-300">Visualizar factura</button>
-                  </a>
-                  <p>{fechas[index]?.idEstadoFactura == 1 ? "Compra Activa" : fechas[index]?.idEstadoFactura == 3 ? "Producto Entregado" : "Compra Cancelada"}</p>
-                  <button className={fechas[index]?.idEstadoFactura == 1 && fechas[index]?.fechaCompra == hoy ? "bg-RosadoOcobo rounded-md p-3" : "hidden"} onClick={cancelarProducto}>Cancelar Compra</button>
-
-                </div>
-                <hr className="mt-5" />
+              <div className="flex flex-col">
+                <a href={factura.ruta_pdf} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
+                  <button className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium hover:text-RosadoOcobo hover:duration-300">Visualizar factura</button>
+                </a>
+                <p>{fechas[index]?.idEstadoFactura == 1 ? "Compra Activa" : fechas[index]?.idEstadoFactura == 3 ? "Producto Entregado" : "Compra Cancelada"}</p>
+              </div>
+            </div>
+            <button className={fechas[index]?.idEstadoFactura == 1 && fechas[index]?.fechaCompra == hoy ? "md:absolute md:right-2 bg-RosadoOcobo rounded-md mt-2 p-2 h-10" : "hidden"} onClick={cancelarProducto}>Cancelar Compra</button>
+          </div>
+          <hr className="mt-5" />
         </div>
     )
 }

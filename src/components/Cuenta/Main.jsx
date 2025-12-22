@@ -244,7 +244,7 @@ const Main = () => {
             <button className="bg-RosadoOcobo p-3 rounded-md">Aceptar Cambios</button>
             <p className="absolute left-10 bottom-10 cursor-pointer hover:text-RosadoOcobo hover:duration-300">
               <Link to={"/Inicio/Productos"}>
-                ← Atras
+                ← Volver al Inicio
               </Link>
             </p>
           </div>

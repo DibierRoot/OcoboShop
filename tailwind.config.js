@@ -31,6 +31,10 @@ export default {
       animation: {
         "tren": "moverTren 20s linear infinite",
       },
+
+      width: {
+        "anchoEspecial": "35rem"
+      }
     },
   },
   plugins: [],

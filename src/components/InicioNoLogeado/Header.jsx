@@ -351,7 +351,7 @@ const Header = ({login}) => {
                                 <div className="mt-80">
                                     <div className="flex flex-col gap-3">
                                         <p className="text-center">¡No hay nada aqui!</p>
-                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a comprar</button>
+                                        <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a Comprar</button>
                                     </div>
                                 </div>
 
