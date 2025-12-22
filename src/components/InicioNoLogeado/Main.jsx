@@ -321,7 +321,7 @@ const Main = () => {
             </div>
 
             <div className="flex justify-center items-center">
-                <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
+                <section className="rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
                     {productos.map((producto, index) => (
                     <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
                     ))}       

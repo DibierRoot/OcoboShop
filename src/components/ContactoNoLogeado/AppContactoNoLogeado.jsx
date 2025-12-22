@@ -3,7 +3,7 @@ import Main from "./Main.jsx"
 
 const AppContacto = ({login}) => {
   return (
-    <div className="bg-black text-white">
+    <div className="text-white">
 
       <Header login={login} />
 

@@ -71,8 +71,6 @@ const Main = () => {
               filtro: filtro             // Filtro de búsqueda (nombre o correo)
           });
 
-          console.log(filtro); // Imprimir el filtro en la consola para depuración
-
           if (response.data.length > 0) {
               setVerProductos(response.data); // Actualizar el estado con los resultados
               Swal.fire({
@@ -118,8 +116,6 @@ const Main = () => {
       // Verificamos si el producto ya está en el carrito usando el idProducto
       const productoExistente = carritoExistente.find(item => item.idProducto === productoConId.idProducto);
     
-      console.log("cantidad:", productoSeleccionado.cantidad);
-
       if (productoSeleccionado.cantidad <= 0) {
             Swal.fire({
                   icon: 'error',
@@ -215,10 +211,6 @@ const Main = () => {
     const milesSeleccionado = (productoSeleccionado) => {
         return productoSeleccionado?.toLocaleString('es-CO');
     }
-
-    console.log("Productos", productos)
-
-    console.log("Productos length", productos.length)
 
     return (
 
@@ -338,7 +330,7 @@ const Main = () => {
                 </div>
 
                 <div className="flex justify-center items-center">
-                    <section className="bg-black rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
+                    <section className="rounded-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4">
                         {productos.length < 1 ? (
                                 <p className="p-10 text-center text-xl">Oops, hasta el momento no hay productos publicados</p>
                             ) : (

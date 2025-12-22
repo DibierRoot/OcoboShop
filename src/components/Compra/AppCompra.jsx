@@ -4,7 +4,7 @@ import Main from "./Main"
 const AppCompra = () => {
     return (
         <>
-            <div className="bg-black">
+            <div className="">
                 <div className="bg-[url('/src/assets/image/Logo.jpeg')] bg-no-repeat bg-contain bg-center h-dvh">
                     <Header />
 

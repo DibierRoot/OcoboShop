@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Items from "./Items";
 
 const Main = () => {
-
   const [facturas, setFacturas] = useState([]);
   const [fechas, setFechas] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const clienteId = localStorage.getItem("idCliente");
 
 
@@ -56,6 +54,8 @@ const Main = () => {
       cargarFacturasDesdeBackend("getFechaFactura", setFechas);
   },
   []); // Solo se ejecuta una vez al montar el componente
+
+    console.log(fechas);
 
   return (
     <main className="pb-8">

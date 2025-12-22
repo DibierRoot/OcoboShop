@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Main = () => {
   const [datosCompra, setDatosCompra] = useState(null);
@@ -46,22 +47,16 @@ const Main = () => {
     }
 
     try {
-        const response = await fetch("http://localhost/OcoboBack-end/GenerarFactura/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                action: "generarFactura",
-                productos: datosCompra.productos,
-                metodoPago,
-                idCliente: clienteId,
-            }),
+        const response = await axios.post("http://localhost/OcoboBack-end/GenerarFactura/", {
+              productos: datosCompra.productos,
+              metodoPago,
+              idCliente: clienteId,
+        }, {
+          headers: {"Content-Type": "application/json"}
         });
+        console.log("error", response.data.status);
 
-        const data = await response.json();
-
-        console.log(data)
-
-        if (data.status === "success") {
+        if (response.data.status === "success") {
             Swal.fire({
               icon: 'success',
               title: 'Factura generada correctamente',
@@ -70,7 +65,7 @@ const Main = () => {
               confirmButtonColor: "#E96BA3",
               background: "#1C1C1C"
             });
-            window.open(data.invoiceUrl, "_blank"); // Abre el PDF en nueva pestaña
+            window.open(response.data.invoiceUrl, "_blank"); // Abre el PDF en nueva pestaña
             localStorage.removeItem("carrito");
             navigate("/Inicio/Productos");
         } else {
@@ -95,7 +90,14 @@ const Main = () => {
       <form className="compra-formulario">
         <div className="bg-NegroSuaveSuavizado relative max-w-xs sm:max-w-xl md:max-w-3xl text-center rounded-lg my-10 mx-auto -mt-36 py-24">
             <h1 className="text-2xl font-bold"> Seleccione su método de pago</h1>
-            <div className="mt-10">
+            <div className="mt-5">
+              <p>¿Sabia que puede pagar al recibir?</p>
+              <p>Descubre todos nuestros métodos de pago haciendo click</p>
+                <Link className="font-bold hover:text-RosadoOcobo duration-300" to={"/Inicio/MetodosDePago"}>
+                  <p>AQUI</p>
+                </Link>
+            </div>
+            <div className="mt-5">
             <select className="bg-RosadoOcobo p-2 rounded-md" value={metodoPago} onChange={(e) => setMetodoPago(e.target.value)}>
                 <option value="">Seleccionar método</option>
                 <option value="ContraEntrega">Contra Entrega</option>

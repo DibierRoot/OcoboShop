@@ -80,7 +80,6 @@ const Header = () => {
                 }
 
                 const data = await response.json();
-                console.log("Respuesta del servidor:", data); // Debug
 
                 if (data) {
                     setNombre(data.nombre); // Inicializar el nombre del usuario
@@ -174,6 +173,7 @@ const Header = () => {
         setProductoSeleccionado(null);
     };
 
+    // Mostrar todos los productos del carrito
     useEffect(() => {
         const syncCarritoConLocalStorage = () => {
             const carritoLocal = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -310,10 +310,10 @@ const Header = () => {
             </div>
                 <div className="mt-2 text-white bg-NegroSuave overflow-hidden">
                     <div className="flex gap-10 animate-tren">
-                        <p className="font-medium">Mejor Sin ti</p>
+                        <a href="https://open.spotify.com/intl-es/track/4qE5SZs8wKXXQ5aPBOJWya?si=707b076dc71f4669" className="font-medium hover:text-RosadoOcobo duration-300">Mejor Sin ti</a>
                         <p className="font-medium">Bella Dvrmiente</p>
                         <p className="font-medium">Duelos</p>
-                        <p className="font-medium">Epistemologia</p>
+                        <a href="https://open.spotify.com/intl-es/track/652OcufNsOGoULADRqzcAL?si=b895b84e3d6046ac" className="font-medium hover:text-RosadoOcobo duration-300">Epistemologia</a>
                         <p className="font-medium">Miedo a Mi Sombra</p>
                         <p className="font-medium">Genesis</p>
                         <p className="font-medium">L0v3</p>

@@ -3,7 +3,7 @@ import Main from "./Main.jsx"
 
 const AppInicio = () => {
   return (
-    <div className="bg-black text-white">
+    <div className="bg-[url('/src/assets/image/FondoEstrellado.png')] text-white">
 
       <Header />
 

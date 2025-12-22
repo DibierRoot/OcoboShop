@@ -23,10 +23,12 @@ const Main = () => {
     const [correo, setCorreo] = useState(""); // Para almacenar el correo del usuario
     const [numeroCelular, setNumeroCelular] = useState(""); // Para almacenar el numero telefonico del usuario
     const [mensaje, setMensaje] = useState(""); // Para almacenar el mensaje escrito por el usuario
+    const hoy = new Date().toLocaleDateString("sv-SE");
 
     const idCliente = localStorage.getItem('idCliente')
 
-    const navigate = useNavigate();
+    const [enviando, setEnviando] = useState(false);
+    const [mensajeRespuesta, setMensajeRespuesta] = useState("")
 
     const [productos, setVerProductos] = useState([])
 
@@ -46,46 +48,86 @@ const Main = () => {
       }
     }, [verDetalles])
 
-    if (idCliente) {
-        // Obtener información del cliente al cargar el componente
-        useEffect(() => {
-            const fetchClientData = async () => {
-                try {
-                    const response = await fetch("http://localhost/OcoboBack-end/CRUD/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            action: "getCliente",
-                            idCliente: idCliente, // Cambia este valor por el ID correcto del cliente
-                        }),
-                    });
+    const click = async (e) => {
+        e.preventDefault();
 
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error("Error en el servidor:", errorText);
-                        return;
-                    }
+        let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-                    const data = await response.json();
-                    console.log("Respuesta del servidor:", data); // Debug
+        if (!nombre.trim()) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Escribe algun nombre para que podamos indentificarte!",
+                iconColor: "#E96BA3",
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C"
+            });
+            return;
+        }
 
-                    if (data) {
-                        setNombre(data.nombre || ""); // Inicializar el nombre del usuario
-                        setCorreo(data.correo || "");
-                        setNumeroCelular(data.numeroCelular || "");
-                    } else {
-                        console.error("Datos de cliente no encontrados o inválidos.");
-                    }
-                } catch (error) {
-                console.error("Error al obtener los datos del cliente:", error);
+        // Validación del formato de correo
+        if (!regexEmail.test(correo)) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡El correo electrónico no es válido!",
+                iconColor: "#E96BA3",
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C"
+            });
+            return;
+        }
+
+        try {
+            // Enviar solicitud de registro al backend
+            const response = await axios.post(
+                "http://localhost/OcoboBack-end/Mensajes/",
+                {
+                    action: "publicar",
+                    hoy,
+                    nombre,
+                    correo,
+                    numeroCelular,
+                    mensaje
+                },
+                { 
+                    withCredentials: true,  // Permitir el envío de cookies de sesión
                 }
-            };
+            );
 
-            fetchClientData();
-        }, []);
-    }
+            const mensajeRespuesta = response.data.message;
+            setMensajeRespuesta(mensajeRespuesta);
+
+            // Si el registro fue exitoso
+            if (mensajeRespuesta === "¡Mensaje Publicado Correctamente!") {
+                Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "¡Mensaje Publicado Correctamente!",
+                showConfirmButton: false,
+                timer: 1500,
+                iconColor: "#E96BA3",
+                confirmButtonColor: "#E96BA3",
+                background: "#1C1C1C"
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Error al Publicar el Mensaje.",
+                });
+            }
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Error al Conectar al servidor.",
+                });
+            } finally {
+                setEnviando(false);
+            }
+    };
 
   /**
   * Función que se ejecuta al hacer clic en el botón de búsqueda.
@@ -235,16 +277,22 @@ const Main = () => {
     return (
 
         <div>
-            <main className="ml-96">
-                <h1 className="mt-5 text-2xl font-bold">Contacto</h1>
-                <p className="text-xs lg:text-sm xl:text-base mt-4">Cualquier duda, pregunta, queja que tenga se le respondera. Recuerde estamos para ayudar en todo lo posible.</p>
-                <div className="mt-5 flex flex-col gap-4">
-                    <label htmlFor="">Nombre <span className="text-RosadoOcobo">*</span> <br /> <input value={nombre} onChange={(e) => setNombre(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                    <label htmlFor="">Correo Electrónico <span className="text-RosadoOcobo">*</span> <br /> <input value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                    <label htmlFor="">Número Telefónico <span className="text-RosadoOcobo">*</span> <br /> <input value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                    <label htmlFor="">Mensaje <span className="text-RosadoOcobo">*</span> <br /><textarea value={mensaje} onChange={(e) => setMensaje(e.target.value)} name="" id="" className="rounded-md text-black outline-none p-2"></textarea></label>
-                </div>
-
+            <main className="relative flex justify-center">
+                <form className="relative" onSubmit={click}>
+                    <h1 className="mt-5 text-2xl font-bold">Contacto</h1>
+                    <p className="text-sm xl:text-base mt-4">Cualquier duda, pregunta, queja que tenga se le respondera.</p>
+                    <p className="text-sm xl:text-base">Recuerde estamos para ayudar en todo lo posible.</p>
+                    <div className="mt-5 flex flex-col gap-4">
+                        <label htmlFor="">Nombre <span className="text-RosadoOcobo">*</span> <br /> <input value={nombre} onChange={(e) => setNombre(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                        <label htmlFor="">Correo Electrónico <span className="text-RosadoOcobo">*</span> <br /> <input value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                        <label htmlFor="">Número Telefónico <span className="text-RosadoOcobo">*</span> <br /> <input value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                        <label htmlFor="">Mensaje <span className="text-RosadoOcobo">*</span> <br /><textarea value={mensaje} onChange={(e) => setMensaje(e.target.value)} name="" id="" className="rounded-md text-black outline-none p-2"></textarea></label>
+                        <button className="bg-RosadoOcobo w-28 p-3 rounded-md" disabled={enviando} >
+                            {enviando ? "Enviando..." : "Enviar"}
+                        </button>
+                        <p className="text-sm xl:text-base">{mensajeRespuesta}</p>
+                    </div>
+                </form>
             </main>
             
 

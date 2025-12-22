@@ -3,7 +3,7 @@ import Main from "./Main.jsx"
 
 const AppRegistro = ({addCliente}) => {
     return (
-        <div className="bg-black h-dvh text-white">
+        <div className="h-dvh text-white">
             
             <Header />
 

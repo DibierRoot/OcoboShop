@@ -134,7 +134,7 @@ const Main = ({addCliente}) => {
   const [productos, setVerProductos] = useState([])
 
     return (
-      <main className="bg-NegroSuave md:bg-black pb-10">
+      <main className="pb-10">
 
         <form onSubmit={click}>
           <div className="bg-NegroSuave relative max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-5xl items-center rounded-lg my-10 mx-auto flex flex-col gap-7 -mt-36 py-24">

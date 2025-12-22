@@ -214,10 +214,12 @@ const Main = () => {
                    Actualmente la Pagina oficial de <strong>OCOBO</strong> cuenta con un unico metodo de pago que es el pago contra entrega.
                    ¿Como funciona este metodo de pago? <br />
                    El pago contra entrega es un metodo de pago donde el cliente realiza el pedido por medio de la pagina. <br />
-                   Luego de que se haya notificado la compra nos comunicaremos con usted y iremos al destino indicado en el apartado de
+                   Luego de que se haya notificado la compra nos comunicaremos con usted y debera hacer un abono de un 10% del valor del producto, <br />
+                   para asi apartarlo y poder hacer el envio al destino indicado en el apartado de
                    <Link to={"/Inicio/Cuenta"}>
                    <strong className="hover:text-RosadoOcobo duration-300 ease-in-out"> Cuenta.</strong> <br />       
                    </Link>
+                   En caso de no obtener respuesta en tres intentos de llamada, el pedido será cancelado automaticamente. <br />
                    Cuando recibas el producto debes pagar el monto acordado en la factura del pedido. El pago puede ser en efectivo o por transferencia. <br />
                    ¡NO SE ACEPTAN DEVOLUCIONES NI CANCELACIONES DE PEDIDO CUANDO EL PRODUCTO YA HA SIDO ENTREGADO AL MENOS QUE HAYA TENIDO DESPERFECTO DE FABRICA!
                 </p>

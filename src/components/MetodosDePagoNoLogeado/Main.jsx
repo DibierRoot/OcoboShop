@@ -218,6 +218,7 @@ const Main = () => {
                    <Link to={"/Registro"}>
                    <strong className="hover:text-RosadoOcobo duration-300 ease-in-out"> Cuenta.</strong> <br />       
                    </Link>
+                   En caso de no obtener respuesta en tres intentos de llamada, el pedido será <strong>CANCELADO</strong> automaticamente. <br />
                    Cuando recibas el producto debes pagar el monto acordado en la factura del pedido. El pago puede ser en efectivo o por transferencia. <br />
                    ¡NO SE ACEPTAN DEVOLUCIONES NI CANCELACIONES DE PEDIDO CUANDO EL PRODUCTO YA HA SIDO ENTREGADO AL MENOS QUE HAYA TENIDO DESPERFECTO DE FABRICA!
                 </p>

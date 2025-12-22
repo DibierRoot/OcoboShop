@@ -4,7 +4,7 @@ import Main from "./Main"
 const AppHistorial = () => {
     return (
         <>
-            <div className="bg-black">
+            <div>
                 <div className="bg-[url('/src/assets/image/Logo.jpeg')] static bg-no-repeat bg-contain bg-center h-dvh">
                     <Header />
 

@@ -15,4 +15,12 @@
     .carrito {
         width: 38rem;
     }
+
+    .animate-tren {
+        transition: animation-duration 0.5 ease;
+    }
+
+    .animate-tren:hover{
+      animation-play-state: paused;
+    }
 }

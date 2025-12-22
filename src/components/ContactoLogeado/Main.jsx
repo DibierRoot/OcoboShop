@@ -23,6 +23,7 @@ const Main = () => {
     const [correo, setCorreo] = useState(""); // Para almacenar el correo del usuario
     const [numeroCelular, setNumeroCelular] = useState(""); // Para almacenar el numero telefonico del usuario
     const [mensaje, setMensaje] = useState(""); // Para almacenar el mensaje escrito por el usuario
+    const hoy = new Date().toLocaleDateString("sv-SE");
 
     const idCliente = localStorage.getItem('idCliente')
 
@@ -83,6 +84,7 @@ const Main = () => {
                 "http://localhost/OcoboBack-end/Mensajes/",
                 {
                     action: "publicar",
+                    hoy,
                     nombre,
                     correo,
                     numeroCelular,
