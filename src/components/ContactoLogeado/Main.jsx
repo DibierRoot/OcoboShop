@@ -81,14 +81,15 @@ const Main = () => {
         try {
             // Enviar solicitud de registro al backend
             const response = await axios.post(
-                "http://localhost/OcoboBack-end/Mensajes/",
+                "http://localhost/OcoboBack-end/PQRs/",
                 {
                     action: "publicar",
                     hoy,
                     nombre,
                     correo,
                     numeroCelular,
-                    mensaje
+                    mensaje,
+                    idEstadoPQR: 2
                 },
                 { 
                     withCredentials: true,  // Permitir el envío de cookies de sesión
