@@ -209,7 +209,7 @@ const Main = () => {
     }, [])
 
     const milesSeleccionado = (productoSeleccionado) => {
-        return productoSeleccionado?.toLocaleString('es-CO');
+        return Number(productoSeleccionado)?.toLocaleString('es-CO');
     }
 
     return (
@@ -335,7 +335,7 @@ const Main = () => {
                                 <p className="p-10 text-center text-xl">Oops, hasta el momento no hay productos publicados</p>
                             ) : (
                                 productos.map((producto, index) => (
-                                <Items manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
+                                <Items setCantidad={setCantidad} setVerDetalles={setVerDetalles} verDetalles={verDetalles} setProductoSeleccionado={setProductoSeleccionado} manejarCarrito={manejarCarrito} key={index} producto={producto} abrirModal={() => abrirModal(producto)} />
                                 ))
                             )
                         }
