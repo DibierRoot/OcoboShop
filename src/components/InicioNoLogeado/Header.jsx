@@ -247,6 +247,8 @@ const Header = ({login}) => {
             });
             const mensajeRespuesta = response.data.message;
             setMensaje(mensajeRespuesta)
+            console.log("Aqui el error", response.data);
+            console.log("Aqui el error");
             // console.log(response.data)
             const id = response.data.idCliente;
 
@@ -311,7 +313,7 @@ const Header = ({login}) => {
                 </nav>
 
             </div>
-            <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
+            <div className="p-5 h-64 sm:h-80 md:h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
                 <div className={`fixed z-50 bg-Suavizado ml-auto w-full h-dvh top-0 left-0 transition-all duration-300 ${!isOpenAccount && "invisible"}`}>
                     <form onSubmit={click}>
                         <div className={`bg-black z-50 h-dvh fixed left-0 right-0 top-0 transition-transform duration-300 ease-in-out sm:cuenta p-8 ${isOpenAccount ? "translate-x-0" : "-translate-x-full"}`}>
@@ -345,10 +347,10 @@ const Header = ({login}) => {
                     <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
-                        <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
+                        <div className={!productosEnCarrito.length ? "mt-10" : "mt-10 overflow-y-auto h-[calc(100vh-64px)]"}>
                             <section className="flex flex-col gap-7">
                                 {!productosEnCarrito.length ?
-                                <div className="mt-80">
+                                <div className="flex justify-center items-center h-screen">
                                     <div className="flex flex-col gap-3">
                                         <p className="text-center">¡No hay nada aqui!</p>
                                         <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a Comprar</button>

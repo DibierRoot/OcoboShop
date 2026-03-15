@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="p-5 h-96 bg-cover bg-center bg-no-repeat sm:text-white bg-[url('src/assets/image/Lettering.jpeg')]">
+        <header className="p-5 h-64 sm:h-80 md:h-96 bg-cover bg-center bg-no-repeat sm:text-white bg-[url('src/assets/image/Lettering.jpeg')]">
 
             <div className="sticky top-10">
 

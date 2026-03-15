@@ -311,7 +311,7 @@ const Header = ({login}) => {
                 </nav>
 
             </div>
-            <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
+            <div className="p-5 h-64 sm:h-80 md:h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
                 <div className={`fixed z-50 bg-Suavizado ml-auto w-full h-dvh top-0 left-0 transition-all duration-300 ${!isOpenAccount && "invisible"}`}>
                     <form onSubmit={click}>
                         <div className={`bg-black z-50 h-dvh fixed left-0 right-0 top-0 transition-transform duration-300 ease-in-out sm:cuenta p-8 ${isOpenAccount ? "translate-x-0" : "-translate-x-full"}`}>
