@@ -4,16 +4,39 @@
 
 @layer utilities {
     .custom-size {
-        width: 20.5rem;
-        height: 31.5rem;
+        width: 100%;
+        max-width: 20.5rem;
+        height: auto;
+        min-height: 20rem;
+    }
+
+    @media (min-width: 640px) {
+        .custom-size {
+            width: 20.5rem;
+            height: 31.5rem;
+        }
     }
 
     .cuenta {
-        width: 23rem;
+        width: 100%;
+        max-width: 23rem;
+    }
+
+    @media (min-width: 640px) {
+        .cuenta {
+            width: 23rem;
+        }
     }
 
     .carrito {
-        width: 38rem;
+        width: 100%;
+        max-width: 38rem;
+    }
+
+    @media (min-width: 640px) {
+        .carrito {
+            width: 38rem;
+        }
     }
 
     .animate-tren {
