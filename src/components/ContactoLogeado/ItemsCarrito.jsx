@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import IconCheck from "./Icons/IconCheck";
+import IconCheck from "../common/Icons/IconCheck";
 
 const ItemsCarrito = ({id, productosSeleccionados, setProductosSeleccionados, productosEnCarrito, setProductosEnCarrito, producto}) => {    
 

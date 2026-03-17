@@ -6,7 +6,7 @@ import AppCompra from "./components/Compra/AppCompra"
 import AppOlvideContrasena from "./components/OlvideContrasena/AppOlvideContrasena"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import AppHistorial from "./components/Historial/AppHIstorial"
+import AppHistorial from "./components/Historial/AppHistorial"
 import AppMetodosDePagoNoLogeado from "./components/MetodosDePagoNoLogeado/AppMetodosDePagoNoLogeado"
 import AppMetodosDePagoLogeado from "./components/MetodosDePagoLogeado/AppMetodosDePagoLogeado"
 import AppContactoLogeado from "./components/ContactoLogeado/AppContactoLogeado"
