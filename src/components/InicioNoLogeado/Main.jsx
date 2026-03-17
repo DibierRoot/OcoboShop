@@ -56,6 +56,24 @@ const Main = () => {
       }
   }
 
+//   <div style="display:flex; justify-content:center;">
+//             <video width="400" height="200" autoplay playsinline muted>
+//                 <source src="/src/assets/video/fondo.mp4" type="video/mp4">
+//             </video>
+//         </div>
+
+  Swal.fire({
+    title: "¡Pilas!",
+    text: "Este sitio web todavia no esta funcionando y esta en periodo de prueba por lo tanto no tendra ninguna funcionalidad, es totalmente ilustrativo y estatico. Agradecemos su visita y esperamos que muy pronto sea el lanzamiento de OCOBOSHOP.",
+    imageUrl: "/src/assets/image/Lettering.jpeg",
+    imageWidth: 400,
+    imageHeight: 200,
+    imageAlt: "Custom image",
+    iconColor: "#E96BA3",
+    confirmButtonColor: "#E96BA3",
+    background: "#1C1C1C"
+  });
+
   /**
   * Función que se ejecuta al hacer clic en el botón de búsqueda.
   * Hace una solicitud al backend para buscar productos basados en el filtro (puede ser categoria).
