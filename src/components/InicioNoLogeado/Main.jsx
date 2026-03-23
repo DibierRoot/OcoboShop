@@ -57,10 +57,10 @@ const Main = () => {
   }
 
 //   <div style="display:flex; justify-content:center;">
-//             <video width="400" height="200" autoplay playsinline muted>
-//                 <source src="/src/assets/video/fondo.mp4" type="video/mp4">
-//             </video>
-//         </div>
+//      <video width="400" height="200" autoplay playsinline muted>
+//          <source src="/src/assets/video/fondo.mp4" type="video/mp4">
+//      </video>
+//   </div>
 
   Swal.fire({
     title: "¡Pilas!",

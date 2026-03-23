@@ -37,7 +37,7 @@ const Items = ({index, producto, manejarCarrito, abrirModal, setVerDetalles, set
 
   useEffect(() => {
     obtenerProductoPorTalla();
-  }, [])
+  }, [producto.nombre])
 
   const milesSeleccionado = (productoSeleccionado) => {
     return Number(productoSeleccionado)?.toLocaleString('es-CO');
