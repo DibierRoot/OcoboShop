@@ -30,8 +30,9 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
     };
 
     useEffect(() => {
+      setVerProductosTalla([]);
       obtenerProductoPorTalla();
-    }, [producto.nombre])
+    }, [producto])
 
     const milesSeleccionado = (productoSeleccionado) => {
       return Number(productoSeleccionado)?.toLocaleString('es-CO');
@@ -42,9 +43,9 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
 
     return (
       <form>
-        <article className={`text-white p-5 rounded-md ${estaAgotado ? "cursor-not-allowed" : "cursor-pointer"}`} key={index}>
+        <article className={`text-white p-5 rounded-md ${estaAgotado ? "cursor-not-allowed" : producto.cantidad > 0 ? "cursor-pointer" : "cursor-default"}`} key={index}>
           <div className="group relative">
-            {estaAgotado ? (
+            {estaAgotado || producto.cantidad == 0 ? (
               <img className={`z-20 w-36 md:w-48 lg:w-56 xl:w-64 h-52 md:h-64 lg:h-72 xl:h-80 ${estaAgotado ? 'opacity-50' : ''}`} src={producto.imagen} alt="ImagenProducto" />
             ) : (
               <img className={`z-20 w-36 md:w-48 lg:w-56 xl:w-64 h-52 md:h-64 lg:h-72 xl:h-80 ${estaAgotado ? 'opacity-50' : ''}`} src={producto.imagen} alt="ImagenProducto" onClick={() => abrirModal()} />

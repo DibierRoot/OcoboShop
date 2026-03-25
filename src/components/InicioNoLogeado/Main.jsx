@@ -134,7 +134,16 @@ const Main = () => {
       // Verificamos si el producto ya está en el carrito usando el idProducto
       const productoExistente = carritoExistente.find(item => item.idProducto === productoConId.idProducto);
     
-      if (productoExistente) {
+      if (productoSeleccionado.cantidad <= 0) {
+            Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: '¡El producto esta agotado!',
+                  iconColor: "#F28B82",
+                  confirmButtonColor: "#E96BA3",
+                  background: "#1C1C1C"
+            });
+      } else if (productoExistente) {
           productoExistente.cantidad = cantidad;
     
           const carritoActualizado = carritoExistente.map(item =>

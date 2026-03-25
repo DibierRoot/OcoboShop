@@ -30,8 +30,9 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
     };
 
     useEffect(() => {
+      setVerProductosTalla([]);
       obtenerProductoPorTalla();
-    }, [producto.nombre])
+    }, [producto])
 
     const milesSeleccionado = (productoSeleccionado) => {
       return Number(productoSeleccionado)?.toLocaleString('es-CO');
