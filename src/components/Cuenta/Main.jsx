@@ -214,29 +214,29 @@ const Main = () => {
               
               <div className="flex justify-center items-center flex-col">
                 <img className="h-36 sm:h-52 w-36 sm:w-52 rounded-full" src={Logo} alt="" />
-                <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 w-40 sm:w-44 md:w-48 lg:w-52 xl:w-56 p-2 mt-4 outline-none bg-NegroSuave" />
+                <input id="nombre" name="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="placeholder:text-2xl placeholder:text-center placeholder:text-white text-center text-white border-b-2 border-white h-10 w-full sm:w-40 md:w-44 lg:w-48 xl:w-52 p-2 mt-4 outline-none bg-NegroSuave" />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-8">
                 <div className="flex flex-col gap-8">
                   <label htmlFor="">Correo Electrónico <br /> 
-                    <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
+                    <input id="correo" name="correo" value={correo} onChange={(e) => setCorreo(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
                   <label htmlFor="">Correo Recuperación <br />
-                    <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
+                    <input id="correoRecuperacion" name="correoRecuperacion" value={correoRecuperacion} onChange={(e) => setCorreoRecuperacion(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" />
                   </label>
 
                   <label className="relative" htmlFor="">Contraseña <br />
-                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="password" disabled />
+                    <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="password" disabled />
                     <img className="absolute right-0 rounded-e-md top-6 h-9 w-9 cursor-pointer" src={Lapiz} alt="" onClick={() => abrirModal()} />
                   </label>
                 </div>
 
                 <div className="flex flex-col gap-8">
-                  <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
-                  <label htmlFor="">Número telefónico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-52 sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Direccion <br /> <input id="direccion" name="direccion" value={direccion} onChange={(e) => setDireccion(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Punto de Referencia <br /> <input id="puntoReferencia" name="puntoReferencia" value={puntoReferencia} onChange={(e) => setPuntoReferencia(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
+                  <label htmlFor="">Número telefónico <br /> <input id="numeroCelular" name="numeroCelular" value={numeroCelular} onChange={(e) => setNumeroCelular(e.target.value)} className="rounded-md h-9 w-full sm:w-44 md:w-48 lg:w-52 xl:w-56 text-black outline-none p-2" type="text" /></label>
                 </div>
 
               </div>
@@ -252,7 +252,7 @@ const Main = () => {
         <Modal className="fixed inset-0 z-50 flex items-center justify-center bg-Suavizado bg-opacity-50" isOpen={cambiarContrasena} centered>
           <ModalBody>
             <form onSubmit={click}>
-              <div className="bg-NegroSuave text-white max-w-5xl w-full p-6 rounded-t-lg">
+              <div className="bg-NegroSuave text-white max-w-xs sm:max-w-md md:max-w-3xl lg:max-w-4xl xl:max-w-5xl w-full p-6 rounded-t-lg">
                 <h1 className="text-lg sm:text-xl xl:text-2xl 2xl:textl-3xl font-semibold pb-12">INGRESE SU NUEVA CONTRASEÑA</h1>
                 <div className="items-center flex flex-col gap-11">
                   <div className="relative">
@@ -266,7 +266,7 @@ const Main = () => {
             </form>
           </ModalBody>
           <ModalFooter>
-            <div className="bg-NegroSuave text-white max-w-5xl w-full p-6 rounded-b-lg">
+            <div className="bg-NegroSuave text-white max-w-xs sm:max-w-md md:max-w-3xl lg:max-w-4xl xl:max-w-5xl w-full p-6 rounded-b-lg">
               <p onClick={() => abrirModal()} className="cursor-pointer">
                   ← Atras
               </p>

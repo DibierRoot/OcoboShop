@@ -305,7 +305,7 @@ const Header = () => {
 
             </div>
 
-            <div className="p-5 h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
+            <div className="p-5 h-64 sm:h-80 md:h-96 bg-cover bg-center bg-no-repeat text-white bg-[url('/src/assets/image/Lettering.jpeg')]">
             </div>
                 <div className="mt-2 text-xs md:text-base text-white bg-NegroSuave overflow-hidden">
                     <div className="flex gap-10 animate-tren">
@@ -323,10 +323,10 @@ const Header = () => {
                     <div className={`bg-black h-dvh ml-auto fixed top-0 left-0 right-0 transition-transform duration-300 ease-in-out sm:carrito p-8 ${isOpenCart ? "translate-x-0" : "translate-x-full"}`}>
                         <h1 className="absolute left-10 cursor-pointer text-xl font-bold">Carrito</h1>
                         <label onClick={() => setIsOpenCart(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
-                        <div className="mt-10 overflow-y-auto h-[calc(100vh-64px)]">
+                        <div className={!productosEnCarrito.length ? "mt-10" : "mt-10 overflow-y-auto h-[calc(100vh-64px)]"}>
                             <section className="flex flex-col gap-7">
                                 {!productosEnCarrito.length ?
-                                <div className="mt-80">
+                                <div className="flex justify-center items-center h-screen">
                                     <div className="flex flex-col gap-3">
                                         <p className="text-center">¡No hay nada aqui!</p>
                                         <button onClick={() => setIsOpenCart(false)} className="bg-RosadoOcobo p-3 rounded-md">Empezar a Comprar</button>

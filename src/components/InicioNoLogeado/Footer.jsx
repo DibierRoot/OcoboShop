@@ -70,6 +70,9 @@ const Footer = ({obtenerProducto}) => {
                     </div>
                 </div>
             </div>
+            <div className="text-center mt-8 pt-5 border-t border-white/20">
+                <p className="text-sm md:text-base">© 2026 Derechos Reservados a Ocobo</p>
+            </div>
         </footer>
     )
 }

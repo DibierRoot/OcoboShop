@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import IconCheck from "./Icons/IconCheck";
+import IconCheck from "../common/Icons/IconCheck";
 
 const ItemsCarrito = ({id, productosSeleccionados, setProductosSeleccionados, productosEnCarrito, setProductosEnCarrito, producto}) => {    
 
@@ -23,7 +23,7 @@ const ItemsCarrito = ({id, productosSeleccionados, setProductosSeleccionados, pr
                 <div>
                     <button className={`mr-2 sm:mx-3 md:mx-4 lg:mx-5 my-36 w-5 h-5 rounded-full border-2 ${productosSeleccionados.includes(producto.id) ? "flex justify-center items-center bg-RosadoOcobo" : "inline-block"}`} name="check-carrito" id="check-carrito" type="button" onClick={() => manejarSeleccionProducto(producto.id)}>{productosSeleccionados.includes(producto.id) && <IconCheck /> }</button>
                 </div>
-                <item key={producto.id} className="flex gap-3 mt-3">
+                <div key={producto.id} className="flex gap-3 mt-3">
                     <img className="w-36 md:w-44 h-48 md:h-60" src={producto.imagen} alt="ImagenProducto" />
                     <div className="">
                         <h1 className="text-base sm:text-lg">{producto.nombre.length > 25 ? producto.nombre?.substring(0, 25) + "..." : producto.nombre}</h1>
@@ -42,7 +42,7 @@ const ItemsCarrito = ({id, productosSeleccionados, setProductosSeleccionados, pr
                             <p>${miles(producto.precio * producto.cantidad)}</p>
                         </div>
                     </div>
-                </item>
+                </div>
             </div>
             <hr className="border-dashed -mt-10 md:mt-0"/>
         </div>

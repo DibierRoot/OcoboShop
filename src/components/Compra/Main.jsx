@@ -69,8 +69,8 @@ const Main = () => {
             localStorage.removeItem("carrito");
             navigate("/Inicio/Productos");
         } else {
-            console.log(data.message)
-            throw new Error(data.message || "Hubo un error al generar la factura.");
+            console.log(response.data.message)
+            throw new Error(response.data.message || "Hubo un error al generar la factura.");
         }
     } catch (error) {
         console.error("Error al generar la factura:", error);
