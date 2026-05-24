@@ -1,0 +1,54 @@
+services:
+  backend:
+    build: ./backend/OcoboBack-end
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend/OcoboBack-end:/var/www/html:z
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+  frontend_admin:
+    build: ./AdminOcoboShop
+    ports:
+      - "3001:3000"
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ninguna
+      MYSQL_DATABASE: OcoboDataBase
+      MYSQL_USER: Cristian
+      MYSQL_PASSWORD: "xK9#mP2$$vL5@nQ8"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ninguna
+      UPLOAD_LIMIT: 300M
+
+    depends_on:
+        - db
+
+volumes:
+  mysql_data:

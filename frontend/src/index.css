@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .custom-size {
+        width: 100%;
+        max-width: 20.5rem;
+        height: auto;
+        min-height: 20rem;
+    }
+
+    @media (min-width: 640px) {
+        .custom-size {
+            width: 20.5rem;
+            height: 31.5rem;
+        }
+    }
+
+    .cuenta {
+        width: 100%;
+        max-width: 23rem;
+    }
+
+    @media (min-width: 640px) {
+        .cuenta {
+            width: 23rem;
+        }
+    }
+
+    .carrito {
+        width: 100%;
+        max-width: 38rem;
+    }
+
+    @media (min-width: 640px) {
+        .carrito {
+            width: 38rem;
+        }
+    }
+
+    .animate-tren {
+        transition: animation-duration 0.5 ease;
+    }
+
+    .animate-tren:hover{
+      animation-play-state: paused;
+    }
+}
