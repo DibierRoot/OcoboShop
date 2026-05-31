@@ -66,7 +66,7 @@ const Main = () => {
             <p>Cargando...</p>
           ) : error ? (
             <p className="error">{error}</p>
-          ) : !facturas.length ? (
+          ) : !fechas.length ? (
             <p>No tiene historial de facturas.</p>
           ) : (
             facturas.map((factura, index) => (

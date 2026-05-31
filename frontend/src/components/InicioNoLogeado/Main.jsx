@@ -92,7 +92,7 @@ if (contador === 0) {
 
           console.log(filtro); // Imprimir el filtro en la consola para depuración
 
-          if (response.data.length > 0) {
+          if (Array.isArray(response.data) && response.data.length > 0) {
               setVerProductos(response.data); // Actualizar el estado con los resultados
               Swal.fire({
                   position: "center",
@@ -213,14 +213,18 @@ if (contador === 0) {
       }
   };
 
-  // Obtener los productos desde el backend
   const obtenerDatos = async () => {
-      axios.get('http://localhost:8080/VerProductos/')  // Ruta del archivo PHP
+      axios.get('http://localhost:8080/VerProductos/')
         .then(response => {
-          setVerProductos(response.data);  // Guardamos los datos de los productos en el estado
+          if (Array.isArray(response.data)) {
+            setVerProductos(response.data);
+          } else {
+            setVerProductos([]);
+          }
         })
         .catch(error => {
           console.error("Hubo un error al obtener las imágenes: ", error);
+          setVerProductos([]);
         });
   }
 

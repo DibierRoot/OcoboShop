@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .custom-size {
+        width: 23.5rem;
+        height: 26.3rem;
+    }
+    
+    .custom-size-productos {
+        width: 23.5rem;
+        height: 31.5rem;
+    }
+}

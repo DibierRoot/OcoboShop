@@ -41,10 +41,19 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
     const totalInventario = verProductosTalla.reduce((acc, tallas) => acc + (tallas.cantidad || 0), 0);
     const estaAgotado = totalInventario === 0;
 
+    const esNuevo = () => {
+      if (!producto.fechaPublicacion || estaAgotado) return false;
+      const fechaPub = new Date(producto.fechaPublicacion);
+      const hoyDate = new Date();
+      const diffTime = hoyDate - fechaPub;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays <= 30;
+    };
+
     return (
       <form>
         <article className={`text-white p-5 rounded-md ${estaAgotado ? "cursor-not-allowed" : producto.cantidad > 0 ? "cursor-pointer" : "cursor-default"}`} key={index}>
-          <div className="group relative">
+          <div className="group relative overflow-hidden rounded-md">
             {estaAgotado || producto.cantidad == 0 ? (
               <img className={`z-20 w-36 md:w-48 lg:w-56 xl:w-64 h-52 md:h-64 lg:h-72 xl:h-80 ${estaAgotado ? 'opacity-50' : ''}`} src={producto.imagen} alt="ImagenProducto" />
             ) : (
@@ -53,6 +62,11 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
             {estaAgotado && (
               <div className="absolute z-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-RosadoOcobo text-white font-bold py-2 px-4 rounded-md text-center">
                 AGOTADO
+              </div>
+            )}
+            {esNuevo() && (
+              <div className="absolute z-40 top-0 right-0 bg-RosadoOcobo text-white text-[9px] md:text-xs font-bold py-1 text-center tracking-wider transform rotate-45 origin-top-right w-16 md:w-24">
+                NUEVO
               </div>
             )}
           <div className="relative bg-black z-40">

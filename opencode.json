@@ -13,7 +13,7 @@
         "npx",
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/home/dibier/Documentos/Desarrollo/OCOBO"
+        "/home/dibier/Documentos/Desarrollo/OcoboShop"
       ]
     }
   }
