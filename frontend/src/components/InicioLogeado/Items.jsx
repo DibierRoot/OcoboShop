@@ -69,15 +69,15 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
                 NUEVO
               </div>
             )}
-          <div className="relative bg-black z-40">
-            <p className="text-sm md:text-base text-white">{producto.nombre.length > 25 ? producto.nombre?.substring(0, 25) + "..." : producto.nombre}</p>
-            <p className="text-sm md:text-base">${milesSeleccionado(producto.precio)} COP</p>
-          </div>
-          <div className={producto.idTalla == 7 ? "hidden" : "hidden z-30 lg:flex absolute px-2 gap-2"}>
-            {verProductosTalla.map((verProductoTalla, index) => (
-              <Tallas producto={producto} hoy={hoy} abrirModalTalla={abrirModalTalla} verProductosTalla={verProductosTalla} verProductoTalla={verProductoTalla} key={index} />
-            ))}
-          </div>
+            <div className="relative bg-black z-40">
+              <p className="text-sm md:text-base text-white">{producto.nombre.length > 25 ? producto.nombre?.substring(0, 25) + "..." : producto.nombre}</p>
+              <p className="text-sm md:text-base">${milesSeleccionado(producto.precio)} COP</p>
+            </div>
+            <div className={producto.idTalla == 7 ? "hidden" : "hidden z-30 lg:flex absolute px-2 gap-2"}>
+              {verProductosTalla.map((verProductoTalla, index) => (
+                <Tallas producto={producto} hoy={hoy} abrirModalTalla={abrirModalTalla} verProductosTalla={verProductosTalla} verProductoTalla={verProductoTalla} key={index} estaAgotado={estaAgotado} />
+              ))}
+            </div>
           </div>
         </article>
       </form>

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Items = ({clienteId, fechas, setFechas, index, factura}) => {
+const Items = ({clienteId, fechas, setFechas, index}) => {
 
     const idFactura = fechas[index]?.idFactura;
     const estado = fechas[index]?.idEstadoFactura
@@ -78,7 +78,7 @@ const Items = ({clienteId, fechas, setFechas, index, factura}) => {
               </div>
 
               <div className="flex flex-col">
-                <a href={factura.ruta_pdf} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
+                <a href={`http://localhost:8080/GenerarFactura/facturas/${fechas[index]?.archivoPDF}`} target="_blank" rel="noopener noreferrer" className="visualizar-factura">
                   <button className="text-base md:text-base lg:text-lg xl:text-xl 2xl:text-xl font-medium hover:text-RosadoOcobo hover:duration-300">Visualizar factura</button>
                 </a>
                 <p>{fechas[index]?.idEstadoFactura == 1 ? "Compra Activa" : fechas[index]?.idEstadoFactura == 3 ? "Producto Entregado" : "Compra Cancelada"}</p>

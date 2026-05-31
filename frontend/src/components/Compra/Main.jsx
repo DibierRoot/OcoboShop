@@ -54,7 +54,7 @@ const Main = () => {
         }, {
           headers: {"Content-Type": "application/json"}
         });
-        console.log("error", response.data.status);
+        console.log("Aqui esta el error", response.data.message);
 
         if (response.data.status === "success") {
             Swal.fire({

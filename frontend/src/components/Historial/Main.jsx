@@ -5,7 +5,6 @@ import axios from "axios";
 import Items from "./Items";
 
 const Main = () => {
-  const [facturas, setFacturas] = useState([]);
   const [fechas, setFechas] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -50,7 +49,6 @@ const Main = () => {
   };
 
   useEffect(() => {
-      cargarFacturasDesdeBackend("getFacturasPorCliente", setFacturas);
       cargarFacturasDesdeBackend("getFechaFactura", setFechas);
   },
   []); // Solo se ejecuta una vez al montar el componente
@@ -69,8 +67,8 @@ const Main = () => {
           ) : !fechas.length ? (
             <p>No tiene historial de facturas.</p>
           ) : (
-            facturas.map((factura, index) => (
-              <Items clienteId={clienteId} fechas={fechas} setFechas={setFechas} index={index} factura={factura} key={index} />
+            fechas.map((fecha, index) => (
+              <Items clienteId={clienteId} fechas={fechas} setFechas={setFechas} index={index} key={index} />
             ))
           )}
         </div>
