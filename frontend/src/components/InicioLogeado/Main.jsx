@@ -40,6 +40,7 @@ const Main = () => {
     }, [verDetalles])
 
   const [cantidad, setCantidad] = useState(1);
+  const [categoriaActiva, setCategoriaActiva] = useState("todo");
 
   const abrirModal = (producto) => {
       setCantidad(1);
@@ -73,6 +74,7 @@ const Main = () => {
 
           if (Array.isArray(response.data) && response.data.length > 0) {
               setVerProductos(response.data);
+              setCategoriaActiva(filtro);
               Swal.fire({
                   position: "center",
                   icon: "success",
@@ -194,6 +196,7 @@ const Main = () => {
     };
 
     const obtenerDatos = async () => {
+        setCategoriaActiva("todo");
         axios.get('http://localhost:8080/VerProductos/')
             .then(response => {
             if (Array.isArray(response.data)) {
@@ -222,59 +225,94 @@ const Main = () => {
             <main>
 
                 <nav>
-                    <div className="mt-5">
-                        <p className="cursor-pointer hover:text-RosadoOcobo duration-300 text-center" onClick={() => obtenerDatos()}>Mostrar Todo</p>
-                    </div>
-
                     <div className="cursor-default justify-center items-center gap-7 text-sm md:text-base sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28 flex flex-col sm:flex-row">
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28">
-                            {/* <input className="text-white border-b-2 border-white h-10 p-2 outline-none bg-black" placeholder="Buscar..." type="text" name="" id="" /> */}
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("1")}>
-                                <span className="relative h-9 w-9 md:h-10 md:w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CamisetaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CamisetaIconHover} alt="Carrito" />
+                            <div className={`group duration-300 flex flex-col items-center cursor-pointer ${categoriaActiva === "todo" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerDatos()}>
+                                <span className={`relative h-9 w-9 md:h-10 md:w-10 transition-colors duration-500 ${categoriaActiva === "todo" ? "text-RosadoOcobo" : "text-white group-hover:text-RosadoOcobo"}`}>
+                                    <svg className="w-full h-full fill-current" viewBox="0 0 24 24">
+                                        <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+                                        <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+                                        <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+                                        <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+                                    </svg>
                                 </span>
-                                <p>Camisetas</p>
+                                <p>Todo</p>
+                            </div>
+                            <div className={`group duration-300 flex flex-col items-center ${categoriaActiva === "1" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerProducto("1")}>
+                                <span className="relative h-9 w-9 md:h-10 md:w-10">
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "1" ? "opacity-0" : "opacity-100"} group-hover:opacity-0`} src={CamisetaIcon} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "1" ? "opacity-100" : "opacity-0"} group-hover:opacity-100`} src={CamisetaIconHover} alt="Carrito" />
+                                </span>
+                                <p>
+                                  Camisetas
+                                  {categoriaActiva === "1" && (
+                                    <span className="ml-1 bg-NegroSuave text-RosadoOcobo text-[10px] rounded-full px-1.5 py-0.5 align-middle">{productos.length}</span>
+                                  )}
+                                </p>
                             </div>
                             
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("4")}>
+                            <div className={`group duration-300 flex flex-col items-center ${categoriaActiva === "4" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerProducto("4")}>
                                 <span className="relative h-9 w-9 md:h-10 md:w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={EsqueletoIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={EsqueletoIconHover} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "4" ? "opacity-0" : "opacity-100"} group-hover:opacity-0`} src={EsqueletoIcon} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "4" ? "opacity-100" : "opacity-0"} group-hover:opacity-100`} src={EsqueletoIconHover} alt="Carrito" />
                                 </span>
-                                <p>Esqueletos</p>
+                                <p>
+                                  Esqueletos
+                                  {categoriaActiva === "4" && (
+                                    <span className="ml-1 bg-NegroSuave text-RosadoOcobo text-[10px] rounded-full px-1.5 py-0.5 align-middle">{productos.length}</span>
+                                  )}
+                                </p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("5")}>
+                            <div className={`group duration-300 flex flex-col items-center ${categoriaActiva === "5" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerProducto("5")}>
                                 <span className="relative h-9 w-9 md:h-10 md:w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={ChaquetaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={ChaquetaIconHover} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "5" ? "opacity-0" : "opacity-100"} group-hover:opacity-0`} src={ChaquetaIcon} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "5" ? "opacity-100" : "opacity-0"} group-hover:opacity-100`} src={ChaquetaIconHover} alt="Carrito" />
                                 </span>
-                                <p>Chaquetas</p>
+                                <p>
+                                  Chaquetas
+                                  {categoriaActiva === "5" && (
+                                    <span className="ml-1 bg-NegroSuave text-RosadoOcobo text-[10px] rounded-full px-1.5 py-0.5 align-middle">{productos.length}</span>
+                                  )}
+                                </p>
                             </div>
                         </div>
 
                         <div className="relative mt-4 flex gap-7 sm:gap-12 md:gap-14 lg:gap-24 xl:gap-28 2xl:gap-28">
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("2")}>
+                            <div className={`group duration-300 flex flex-col items-center ${categoriaActiva === "2" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerProducto("2")}>
                                 <span className="relative h-9 w-9 md:h-10 md:w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={PlumillaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={PlumillaIconHover} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "2" ? "opacity-0" : "opacity-100"} group-hover:opacity-0`} src={PlumillaIcon} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "2" ? "opacity-100" : "opacity-0"} group-hover:opacity-100`} src={PlumillaIconHover} alt="Carrito" />
                                 </span>
-                                <p>Picks</p>
+                                <p>
+                                  Picks
+                                  {categoriaActiva === "2" && (
+                                    <span className="ml-1 bg-NegroSuave text-RosadoOcobo text-[10px] rounded-full px-1.5 py-0.5 align-middle">{productos.length}</span>
+                                  )}
+                                </p>
                             </div>
 
-                            <div className="hover:text-RosadoOcobo duration-300 flex flex-col  items-center" onClick={() => obtenerProducto("3")}>
+                            <div className={`group duration-300 flex flex-col items-center ${categoriaActiva === "3" ? "text-RosadoOcobo" : "hover:text-RosadoOcobo"}`} onClick={() => obtenerProducto("3")}>
                                 <span className="relative h-9 w-9 md:h-10 md:w-10">
-                                    <img className="absolute transition-opacity opacity-100 hover:opacity-0 duration-500 ease-in-out" src={CapuchaIcon} alt="Carrito" />
-                                    <img className="absolute transition-opacity opacity-0 hover:opacity-100 duration-500 ease-in-out" src={CapuchaIconHover} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "3" ? "opacity-0" : "opacity-100"} group-hover:opacity-0`} src={CapuchaIcon} alt="Carrito" />
+                                    <img className={`absolute transition-opacity duration-500 ease-in-out ${categoriaActiva === "3" ? "opacity-100" : "opacity-0"} group-hover:opacity-100`} src={CapuchaIconHover} alt="Carrito" />
                                 </span>
-                                <p>Accesorios</p>
+                                <p>
+                                  Accesorios
+                                  {categoriaActiva === "3" && (
+                                    <span className="ml-1 bg-NegroSuave text-RosadoOcobo text-[10px] rounded-full px-1.5 py-0.5 align-middle">{productos.length}</span>
+                                  )}
+                                </p>
                             </div>
                         </div>
 
                     </div>
-                    <hr className="mx-14 sm:mx-16 md xl:mx-56 2xl:mx-56 mt-10 mb-5" />
+                    <div className="flex items-center mx-14 sm:mx-16 md:mx-56 xl:mx-56 2xl:mx-56 mt-10 mb-5 gap-3">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-600 to-gray-600"></div>
+                        <div className="w-2 h-2 bg-RosadoOcobo rotate-45 flex-shrink-0"></div>
+                        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-gray-600 to-gray-600"></div>
+                    </div>
                 </nav>
 
                 <div className={`outline-none flex fixed inset-0 z-50 items-center justify-center bg-Suavizado bg-opacity-50 ${!verDetalles ? "hidden" : ""}`}>

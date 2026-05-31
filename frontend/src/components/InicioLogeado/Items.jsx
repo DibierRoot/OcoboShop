@@ -65,7 +65,7 @@ const Items = ({setCantidad, setVerDetalles, verDetalles, setProductoSeleccionad
               </div>
             )}
             {esNuevo() && (
-              <div className="absolute z-40 top-0 right-0 bg-RosadoOcobo text-white text-[9px] md:text-xs font-bold py-1 text-center tracking-wider transform rotate-45 origin-top-right w-16 md:w-24">
+              <div className="absolute z-40 top-0 right-0 bg-RosadoOcobo text-white text-[9px] md:text-xs font-bold py-1 text-center tracking-wider transform rotate-45 w-16 md:w-24 mt-1.5 -mr-4 md:mt-2 md:-mr-7">
                 NUEVO
               </div>
             )}
