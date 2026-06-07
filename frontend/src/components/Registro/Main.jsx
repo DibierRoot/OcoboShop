@@ -1,4 +1,4 @@
-import ojito from "/src/assets/icons/IconOculto.png";
+import EyeToggle from "../common/Icons/EyeToggle";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -141,7 +141,7 @@ const Main = ({addCliente}) => {
             <h1 className="text-4xl">¡HOLA!</h1>
             <label htmlFor="nombre">Nombre <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="nombre" name="nombre" value={nombre} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
             <label htmlFor="correo">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /> <input onChange={handleChange} id="correo" name="correo" value={correo} className="rounded-md h-9 text-black outline-none p-2" type="text" /></label>
-            <label className="relative" htmlFor="contrasena">Contraseña <span className="text-RosadoOcobo">*</span> <br /><span> <img className="absolute right-2 mt-1 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input onChange={handleChange} id="contrasena" name="contrasena" value={contrasena} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
+            <label className="relative" htmlFor="contrasena">Contraseña <span className="text-RosadoOcobo">*</span> <br /><EyeToggle visible={verContrasena} onClick={verOcultarContrasena} className="absolute right-2 mt-1" /> <input onChange={handleChange} id="contrasena" name="contrasena" value={contrasena} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
             <button className="bg-RosadoOcobo p-3 rounded-md" disabled={cargando} >
               {cargando ? "Registrando..." : "Crear Cuenta"}
             </button>

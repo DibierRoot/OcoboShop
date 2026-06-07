@@ -5,7 +5,7 @@ import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import Swal from "sweetalert2";
 import axios from "axios";
 import Lapiz from "/src/assets/icons/Lapiz.png"
-import ojito from "/src/assets/icons/IconOculto.png";
+import EyeToggle from "../common/Icons/EyeToggle";
 
 const Main = () => {
 
@@ -256,7 +256,7 @@ const Main = () => {
                 <h1 className="text-lg sm:text-xl xl:text-2xl 2xl:textl-3xl font-semibold pb-12">INGRESE SU NUEVA CONTRASEÑA</h1>
                 <div className="items-center flex flex-col gap-11">
                   <div className="relative">
-                    <label>Contraseña <span className="text-RosadoOcobo">*</span> <br /> <span> <img className="absolute right-1 mt-0.5 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
+                    <label className="relative">Contraseña <span className="text-RosadoOcobo">*</span> <br /> <EyeToggle visible={verContrasena} onClick={verOcultarContrasena} className="absolute top-[1.9rem] left-[11.5rem]" /> <input id="contrasena" name="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="rounded-md h-9 text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
                   </div>
                   <div>
                     <button className="bg-RosadoOcobo p-3 rounded-md">Continuar</button>

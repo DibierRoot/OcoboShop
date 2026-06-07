@@ -5,7 +5,6 @@ import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Items from "./Items";
 import ListaFacturas from "./ListaFacturas";
-import ojito from "/src/assets/icons/IconOculto.png";
 import Pendientes from "./Pendientes";
 
 // Establecemos el contenedor del modal

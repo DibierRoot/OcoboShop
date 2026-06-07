@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Carrito from "/src/assets/icons/Carrito.png"
-import ojito from "/src/assets/icons/IconOculto.png";
+import EyeToggle from "../common/Icons/EyeToggle";
 import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -246,23 +246,37 @@ const Header = ({login}) => {
                 contrasena
             });
             const mensajeRespuesta = response.data.message;
+            const debeCambiar = response.data.debe_cambiar_contrasena;
             setMensaje(mensajeRespuesta)
-            // console.log(response.data)
             const id = response.data.idCliente;
 
             if (mensajeRespuesta === 'Login exitoso') {
                 localStorage.setItem("idCliente", id)
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: 'Login exitoso',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    iconColor: "#E96BA3",
-                    confirmButtonColor: "#E96BA3",
-                    background: "#1C1C1C"
-                });
-                navigate("/Inicio/Productos")
+
+                if (debeCambiar) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "warning",
+                        title: 'Cambia tu contraseña',
+                        text: 'Por seguridad, debes cambiar tu contraseña temporal.',
+                        confirmButtonColor: "#E96BA3",
+                        background: "#1C1C1C",
+                        iconColor: "#E96BA3"
+                    });
+                    navigate("/Inicio/Cuenta")
+                } else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: 'Login exitoso',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        iconColor: "#E96BA3",
+                        confirmButtonColor: "#E96BA3",
+                        background: "#1C1C1C"
+                    });
+                    navigate("/Inicio/Productos")
+                }
             }
         } catch (error) {
             console.log(error)
@@ -318,7 +332,7 @@ const Header = ({login}) => {
                             <label onClick={() => setIsOpenAccount(false)} htmlFor="" className="absolute right-10 cursor-pointer text-xl font-bold">x</label>
                             <div className="mt-8">
                                 <label htmlFor="">Correo Electronico <span className="text-RosadoOcobo">*</span> <br /><input id="correo" name="correo" value={correo} onChange={handleChange} className="rounded-md h-9 w-full text-black outline-none p-2" type="text" /></label> <br /> <br />
-                                <label htmlFor="">Contraseña <span className="text-RosadoOcobo">*</span>  <br /> <span><img className="absolute right-10 w-8" src={ojito} onClick={verOcultarContrasena} alt="" /></span> <input id="contrasena" name="contrasena" value={contrasena} onChange={handleChange} className="rounded-md h-9 w-full text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
+                                <label htmlFor="">Contraseña <span className="text-RosadoOcobo">*</span>  <br /> <EyeToggle visible={verContrasena} onClick={verOcultarContrasena} className="absolute right-10" /> <input id="contrasena" name="contrasena" value={contrasena} onChange={handleChange} className="rounded-md h-9 w-full text-black outline-none p-2" type={verContrasena ? "text" : "password"} /></label>
                                 
                                 <div className="mt-4 flex flex-col gap-3">
                                     <button className="bg-RosadoOcobo p-3 rounded-md">Iniciar Sesion</button>
